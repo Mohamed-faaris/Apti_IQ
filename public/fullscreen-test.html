@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullscreen Test - AptIQ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        button {
+            background: #4F46E5;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        button:hover {
+            background: #4338CA;
+        }
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .success {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        .error {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        .info {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+    </style>
+</head>
+<body>
+    <h1>🖥️ Fullscreen Test</h1>
+    <p>Click the button below to test if fullscreen works in your browser.</p>
+    
+    <button id="testBtn">Start Test (Enter Fullscreen)</button>
+    
+    <div id="status" class="status info">
+        Ready to test. Click the button above.
+    </div>
+
+    <div id="details" style="text-align: left; margin-top: 30px; padding: 15px; background: #F3F4F6; border-radius: 8px;">
+        <h3>Browser Information:</h3>
+        <p id="browserInfo"></p>
+    </div>
+
+    <script>
+        const testBtn = document.getElementById('testBtn');
+        const status = document.getElementById('status');
+        const browserInfo = document.getElementById('browserInfo');
+
+        // Display browser info
+        browserInfo.innerHTML = `
+            <strong>User Agent:</strong> ${navigator.userAgent}<br>
+            <strong>Fullscreen Enabled:</strong> ${document.fullscreenEnabled}<br>
+            <strong>Vendor:</strong> ${navigator.vendor}
+        `;
+
+        async function testFullscreen() {
+            console.log('=== BUTTON CLICKED ===');
+            console.log('Fullscreen API available:', !!document.fullscreenEnabled);
+            console.log('Currently in fullscreen:', !!document.fullscreenElement);
+
+            if (!document.fullscreenEnabled) {
+                status.className = 'status error';
+                status.textContent = '❌ Fullscreen API not supported by your browser';
+                return;
+            }
+
+            try {
+                status.className = 'status info';
+                status.textContent = '⏳ Requesting fullscreen...';
+                
+                console.log('Attempting to request fullscreen...');
+                
+                const element = document.documentElement;
+                
+                // Try different methods
+                if (element.requestFullscreen) {
+                    console.log('Using standard requestFullscreen');
+                    await element.requestFullscreen();
+                } else if (element.webkitRequestFullscreen) {
+                    console.log('Using webkit prefix');
+                    await element.webkitRequestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    console.log('Using moz prefix');
+                    await element.mozRequestFullScreen();
+                } else if (element.msRequestFullscreen) {
+                    console.log('Using ms prefix');
+                    await element.msRequestFullscreen();
+                } else {
+                    throw new Error('No fullscreen method available');
+                }
+                
+                console.log('✅ Fullscreen request sent');
+                
+                // Wait a bit
+                await new Promise(resolve => setTimeout(resolve, 200));
+                
+                if (document.fullscreenElement) {
+                    status.className = 'status success';
+                    status.textContent = '✅ SUCCESS! Fullscreen is active. Press ESC to exit.';
+                    console.log('✅ Fullscreen confirmed active');
+                } else {
+                    status.className = 'status error';
+                    status.textContent = '⚠️ Fullscreen request sent but not active. Check browser permissions.';
+                    console.warn('⚠️ Fullscreen element is null after request');
+                }
+                
+            } catch (err) {
+                console.error('❌ Fullscreen failed:', err);
+                status.className = 'status error';
+                status.innerHTML = `
+                    ❌ Fullscreen failed!<br>
+                    <strong>Error:</strong> ${err.message}<br>
+                    <strong>Name:</strong> ${err.name}<br><br>
+                    <strong>Possible fixes:</strong><br>
+                    1. Click the lock icon in address bar<br>
+                    2. Check site permissions<br>
+                    3. Allow fullscreen<br>
+                    4. Refresh and try again
+                `;
+            }
+        }
+
+        testBtn.addEventListener('click', testFullscreen);
+
+        // Monitor fullscreen changes
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                console.log('📺 Fullscreen activated');
+                testBtn.textContent = 'Exit Fullscreen';
+                testBtn.onclick = () => document.exitFullscreen();
+            } else {
+                console.log('📺 Fullscreen exited');
+                testBtn.textContent = 'Start Test (Enter Fullscreen)';
+                testBtn.onclick = testFullscreen;
+                if (status.className === 'status success') {
+                    status.className = 'status info';
+                    status.textContent = 'Fullscreen exited. Click button to test again.';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

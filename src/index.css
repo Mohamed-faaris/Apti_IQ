@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply text-primary;
+    background-color: #FFF8E7; /* Warm cream notebook paper */
+    background-image: 
+      /* Ruled lines */
+      repeating-linear-gradient(
+        transparent,
+        transparent 31px,
+        #D4A574 31px,
+        #D4A574 32px
+      ),
+      /* Subtle paper texture */
+      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03' /%3E%3C/svg%3E");
+    background-size: 100% 32px, 100px 100px;
+    background-attachment: fixed; /* Fixed background - stays in place while scrolling */
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 300ms ease-in-out;
+  }
+  
+  .notebook-paper {
+    background-color: #FFFBF0;
+    background-image: repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      #D4A574 31px,
+      #D4A574 32px
+    );
+    background-size: 100% 32px;
+    background-attachment: local;
+  }
+  
+  .notebook-shadow {
+    box-shadow: 
+      2px 2px 8px rgba(139, 69, 19, 0.1),
+      inset 0 0 0 1px rgba(212, 165, 116, 0.1);
+  }
+  
+  .test-background {
+    background-color: #FAF6ED;
+    background-image: 
+      /* Very subtle grid pattern */
+      linear-gradient(rgba(212, 165, 116, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 165, 116, 0.1) 1px, transparent 1px),
+      /* Paper texture */
+      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.02' /%3E%3C/svg%3E");
+    background-size: 32px 32px, 32px 32px, 100px 100px;
+    background-attachment: fixed;
+  }
+}
+
+
+
