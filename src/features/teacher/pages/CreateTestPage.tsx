@@ -87,7 +87,7 @@ export const CreateTestPage = () => {
     
     // Show code in alert for easy copying
     setTimeout(() => {
-      alert(`Test Created Successfully!\n\nTest Code: ${testCode}\n\nShare this code with your students so they can join the test.`);
+      alert(`✅ Test Created Successfully!\n\n📋 Test Code: ${testCode}\n\n👥 Share this code with your students so they can join and take the test.\n\n💡 Students will enter this code on the test page to access your test.`);
       navigate('/teacher/dashboard');
     }, 1000);
   };
@@ -98,8 +98,8 @@ export const CreateTestPage = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="text-4xl font-bold text-primary mb-2">🧪 Create New Test</h1>
-        <p className="text-gray-600">Design a test to evaluate your students</p>
+        <h1 className="text-4xl font-bold text-primary mb-2">🧪 Create Test for Students</h1>
+        <p className="text-gray-600">Design a test and get a shareable code for your students</p>
       </motion.div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

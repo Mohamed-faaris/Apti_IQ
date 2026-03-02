@@ -190,13 +190,13 @@ const TestSelectionPage = () => {
       >
         <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200">
           <div className="flex items-center gap-4">
-            <span className="text-4xl">🔑</span>
+            <span className="text-4xl">🎓</span>
             <div className="flex-1">
               <h2 className="text-xl font-bold text-primary mb-1">
                 Join Teacher's Test
               </h2>
               <p className="text-sm text-gray-600">
-                Have a test code from your teacher? Enter it here
+                Your professor shared a test code? Enter it here to take their assigned test
               </p>
             </div>
             <Button
@@ -225,7 +225,7 @@ const TestSelectionPage = () => {
                 </Button>
               </div>
               <p className="text-xs text-gray-500 mt-2">
-                Format: Three letters, three numbers, three letters (e.g., MAT-456-TST)
+                💡 Test codes are provided by your teacher/professor
               </p>
             </motion.div>
           )}
@@ -235,7 +235,7 @@ const TestSelectionPage = () => {
       {/* Divider */}
       <div className="flex items-center gap-4">
         <div className="flex-1 h-px bg-gray-300"></div>
-        <span className="text-gray-500 font-medium">OR</span>
+        <span className="text-gray-500 font-medium">OR PRACTICE ON YOUR OWN</span>
         <div className="flex-1 h-px bg-gray-300"></div>
       </div>
 
@@ -245,9 +245,12 @@ const TestSelectionPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h2 className="text-2xl font-bold text-primary mb-4">
-          Choose a Test Type
+        <h2 className="text-2xl font-bold text-primary mb-2">
+          Self-Practice Tests
         </h2>
+        <p className="text-gray-600 mb-4">
+          Choose a test type and customize your practice session
+        </p>
         <div className="grid md:grid-cols-3 gap-6">
           {testTypes.map((type, index) => (
             <motion.div

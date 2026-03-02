@@ -161,6 +161,11 @@ export const TeacherDashboard = () => {
               <span className="mr-2">📈</span> View Analytics
             </Button>
           </div>
+          <div className="mt-4 p-3 bg-white rounded-lg border border-purple-200">
+            <p className="text-sm text-gray-700">
+              💡 <span className="font-medium">Tip:</span> Create tests and share the generated code with your students. They'll use it to join and take your test.
+            </p>
+          </div>
         </Card>
       </motion.div>
 
@@ -174,7 +179,10 @@ export const TeacherDashboard = () => {
           >
             <Card className="bg-gradient-to-r from-green-50 to-teal-50 border-2 border-green-200">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-primary">🧪 Created Tests</h2>
+                <div>
+                  <h2 className="text-2xl font-bold text-primary">🧪 Your Created Tests</h2>
+                  <p className="text-sm text-gray-600 mt-1">Share these codes with your students</p>
+                </div>
                 <Badge variant="success">{createdTests.length} Active</Badge>
               </div>
               <div className="space-y-3">

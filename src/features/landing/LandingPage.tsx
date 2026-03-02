@@ -263,17 +263,20 @@ export const LandingPage = () => {
 
       {/* Features */}
       <section className="container mx-auto px-4 py-16">
-        <h2 className="text-4xl font-bold text-center text-primary mb-12">
+        <h2 className="text-4xl font-bold text-center text-primary mb-4">
           Why Choose AptIQ?
         </h2>
+        <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+          A complete platform for students to learn and practice, and for teachers to conduct professional assessments
+        </p>
         <div className="grid md:grid-cols-3 gap-8">
           {[
-            { icon: '📚', title: 'Comprehensive Learning', desc: 'Structured lessons covering all aptitude topics' },
+            { icon: '📚', title: 'Comprehensive Learning', desc: 'Structured lessons covering all aptitude topics for self-paced learning' },
             { icon: '⚡', title: 'Real-Time Testing', desc: 'Practice with timed tests and instant feedback' },
             { icon: '🏆', title: 'Live Leaderboard', desc: 'Compete with peers and track your ranking' },
-            { icon: '📊', title: 'Analytics Dashboard', desc: 'Detailed insights into your performance' },
-            { icon: '🛡️', title: 'Anti-Cheat System', desc: 'Fair testing environment for everyone' },
-            { icon: '🎯', title: 'Personalized Learning', desc: 'Focus on your weak areas with smart recommendations' },
+            { icon: '📊', title: 'Analytics Dashboard', desc: 'Detailed insights into performance for students and teachers' },
+            { icon: '🛡️', title: 'Anti-Cheat System', desc: 'Fair testing environment with violation tracking' },
+            { icon: '👨‍🏫', title: 'Teacher Tools', desc: 'Professors can create and conduct tests for their students' },
           ].map((feature, i) => (
             <motion.div
               key={i}
@@ -289,6 +292,89 @@ export const LandingPage = () => {
               </Card>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* For Students and Teachers */}
+      <section className="container mx-auto px-4 py-16 bg-gradient-to-r from-blue-50 to-purple-50">
+        <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* For Students */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <Card className="h-full">
+              <div className="text-5xl mb-4">🎓</div>
+              <h3 className="text-3xl font-bold text-primary mb-4">For Students</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Learn aptitude concepts through structured lessons</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Practice with customizable self-tests</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Join teacher-assigned tests using codes</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Track your progress and compete on leaderboards</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Get detailed analytics on your performance</span>
+                </li>
+              </ul>
+              <Link to="/register">
+                <Button variant="primary" className="w-full mt-6">
+                  Start Learning
+                </Button>
+              </Link>
+            </Card>
+          </motion.div>
+
+          {/* For Teachers */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <Card className="h-full bg-gradient-to-br from-purple-50 to-blue-50">
+              <div className="text-5xl mb-4">👨‍🏫</div>
+              <h3 className="text-3xl font-bold text-primary mb-4">For Teachers</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Create custom tests for your students</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Generate unique test codes for easy distribution</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Monitor student performance in real-time</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Grade assignments and track class progress</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-secondary mt-1">✓</span>
+                  <span>Access comprehensive analytics for your class</span>
+                </li>
+              </ul>
+              <Link to="/register">
+                <Button variant="secondary" className="w-full mt-6">
+                  Register as Teacher
+                </Button>
+              </Link>
+            </Card>
+          </motion.div>
         </div>
       </section>
 
