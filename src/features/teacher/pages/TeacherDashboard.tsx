@@ -28,14 +28,13 @@ export const TeacherDashboard = () => {
   // Mock teacher stats - replace with real API call
   const teacherStats = {
     totalStudents: 156,
-    activeCourses: 8,
-    totalLessons: 45,
+    activeTests: 12,
+    totalTests: 45,
     avgStudentScore: 78,
-    pendingAssignments: 23,
     recentActivity: [
       { id: 1, student: 'John Doe', action: 'Completed Algebra Test', score: 85, time: '2 hours ago' },
-      { id: 2, student: 'Jane Smith', action: 'Submitted Assignment', score: 92, time: '3 hours ago' },
-      { id: 3, student: 'Mike Johnson', action: 'Started Geometry Lesson', time: '5 hours ago' },
+      { id: 2, student: 'Jane Smith', action: 'Completed Math Test', score: 92, time: '3 hours ago' },
+      { id: 3, student: 'Mike Johnson', action: 'Started Geometry Test', time: '5 hours ago' },
     ],
     upcomingClasses: [
       { id: 1, subject: 'Mathematics', topic: 'Quadratic Equations', time: 'Today, 2:00 PM', students: 25 },
@@ -61,8 +60,8 @@ export const TeacherDashboard = () => {
             <Button variant="outline" onClick={() => navigate('/teacher/students')}>
               View Students
             </Button>
-            <Button variant="primary" onClick={() => navigate('/teacher/create-lesson')}>
-              + Create Lesson
+            <Button variant="primary" onClick={() => navigate('/teacher/create-test')}>
+              + Create Test
             </Button>
           </div>
         </div>
@@ -90,9 +89,9 @@ export const TeacherDashboard = () => {
           transition={{ delay: 0.2 }}
         >
           <StatCard
-            title="Active Courses"
-            value={teacherStats.activeCourses}
-            icon="📚"
+            title="Active Tests"
+            value={teacherStats.activeTests}
+            icon="🧪"
           />
         </motion.div>
 
@@ -102,8 +101,8 @@ export const TeacherDashboard = () => {
           transition={{ delay: 0.3 }}
         >
           <StatCard
-            title="Total Lessons"
-            value={teacherStats.totalLessons}
+            title="Total Tests Created"
+            value={teacherStats.totalTests}
             icon="📝"
           />
         </motion.div>
@@ -131,27 +130,13 @@ export const TeacherDashboard = () => {
       >
         <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200">
           <h2 className="text-xl font-bold text-primary mb-4">⚡ Quick Actions</h2>
-          <div className="grid md:grid-cols-4 gap-4">
-            <Button
-              variant="outline"
-              className="w-full justify-start"
-              onClick={() => navigate('/teacher/create-lesson')}
-            >
-              <span className="mr-2">📝</span> Create Lesson
-            </Button>
+          <div className="grid md:grid-cols-2 gap-4">
             <Button
               variant="outline"
               className="w-full justify-start"
               onClick={() => navigate('/teacher/create-test')}
             >
               <span className="mr-2">🧪</span> Create Test
-            </Button>
-            <Button
-              variant="outline"
-              className="w-full justify-start"
-              onClick={() => navigate('/teacher/grade-assignments')}
-            >
-              <span className="mr-2">✅</span> Grade Assignments
             </Button>
             <Button
               variant="outline"
@@ -238,7 +223,6 @@ export const TeacherDashboard = () => {
           <Card>
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold text-primary">📋 Recent Activity</h2>
-              <Badge variant="secondary">{teacherStats.pendingAssignments} Pending</Badge>
             </div>
             <div className="space-y-4">
               {teacherStats.recentActivity.map((activity) => (
