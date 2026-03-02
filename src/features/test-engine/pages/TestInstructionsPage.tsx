@@ -9,29 +9,59 @@ import { MAX_VIOLATIONS } from "../../../shared/constants";
 const TestInstructionsPage = () => {
   const navigate = useNavigate();
   const [agreed, setAgreed] = useState(false);
-  const [testInfo, setTestInfo] = useState<{ type?: string; code?: string }>({});
+  const [testInfo, setTestInfo] = useState<{ 
+    type?: string; 
+    code?: string;
+    subject?: string;
+    chapters?: string[];
+  }>({});
 
   // Get test info from session storage
   useState(() => {
     const testType = sessionStorage.getItem('testType');
     const testCode = sessionStorage.getItem('testCode');
-    setTestInfo({ type: testType || undefined, code: testCode || undefined });
+    const testSubject = sessionStorage.getItem('testSubject');
+    const testChapters = sessionStorage.getItem('testChapters');
+    
+    setTestInfo({ 
+      type: testType || undefined, 
+      code: testCode || undefined,
+      subject: testSubject || undefined,
+      chapters: testChapters ? JSON.parse(testChapters) : undefined
+    });
   });
 
   const getTestTitle = () => {
     if (testInfo.code) {
       return `Teacher's Test (Code: ${testInfo.code})`;
     }
+    
+    let title = '';
     switch (testInfo.type) {
       case 'practice':
-        return 'Practice Test';
+        title = 'Practice Test';
+        break;
       case 'mock':
-        return 'Mock Test';
+        title = 'Mock Test';
+        break;
       case 'advanced':
-        return 'Advanced Test';
+        title = 'Advanced Test';
+        break;
       default:
-        return 'Aptitude Test';
+        title = 'Aptitude Test';
     }
+    
+    if (testInfo.subject) {
+      const subjectNames: Record<string, string> = {
+        '1': 'Mathematics',
+        '2': 'Logical Reasoning',
+        '3': 'Verbal Ability',
+        '4': 'Data Interpretation'
+      };
+      title += ` - ${subjectNames[testInfo.subject] || 'Subject'}`;
+    }
+    
+    return title;
   };
 
   const rules = [
@@ -171,6 +201,11 @@ const TestInstructionsPage = () => {
             <p className="text-gray-600">
               Please read carefully before starting
             </p>
+            {testInfo.chapters && testInfo.chapters.length > 0 && (
+              <p className="text-sm text-secondary mt-1">
+                📚 {testInfo.chapters.length} chapter(s) selected for this test
+              </p>
+            )}
           </div>
           <Button variant="outline" onClick={() => navigate("/test")}>
             ← Back
