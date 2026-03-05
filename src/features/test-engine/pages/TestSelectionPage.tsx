@@ -197,22 +197,22 @@ const TestSelectionPage = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 pb-8">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-8 space-y-4 sm:space-y-6 lg:space-y-8 pb-6 sm:pb-8">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary mb-2">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-1 sm:mb-2">
               Select Test Type
             </h1>
-            <p className="text-sm sm:text-base text-gray-600">
+            <p className="text-xs sm:text-sm text-gray-600">
               Choose a test type or join with a code
             </p>
           </div>
-          <Button variant="outline" onClick={() => navigate('/dashboard')} className="self-start sm:self-auto">
+          <Button variant="outline" onClick={() => navigate('/dashboard')} className="self-start sm:self-auto text-xs sm:text-sm">
             ← Back
           </Button>
         </div>
@@ -225,10 +225,10 @@ const TestSelectionPage = () => {
         transition={{ delay: 0.1 }}
       >
         <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            <span className="text-3xl sm:text-4xl">🎓</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+            <span className="text-2xl sm:text-3xl lg:text-4xl">🎓</span>
             <div className="flex-1">
-              <h2 className="text-lg sm:text-xl font-bold text-primary mb-1">
+              <h2 className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-1">
                 Take Teacher's Test
               </h2>
               <p className="text-xs sm:text-sm text-gray-600">
@@ -238,12 +238,12 @@ const TestSelectionPage = () => {
             <Button
               variant="secondary"
               onClick={() => navigate('/my-classes')}
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto text-xs sm:text-sm"
             >
               Go to My Classes →
             </Button>
           </div>
-          <div className="mt-4 pt-4 border-t border-purple-200">
+          <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-purple-200">
             <p className="text-xs text-gray-600">
               💡 <span className="font-medium">How it works:</span> Get a class code from your teacher → Join the class → Access tests assigned to that class
             </p>
@@ -264,13 +264,13 @@ const TestSelectionPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-2">
+        <h2 className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-1 sm:mb-2">
           Self-Practice Tests
         </h2>
-        <p className="text-sm sm:text-base text-gray-600 mb-4">
+        <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
           Choose a test type and customize your practice session
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
           {testTypes.map((type, index) => (
             <motion.div
               key={type.id}
@@ -287,15 +287,15 @@ const TestSelectionPage = () => {
                 onClick={() => handleSelectTest(type.id)}
               >
                 <div className="text-center">
-                  <div className="text-4xl sm:text-5xl mb-3">{type.icon}</div>
-                  <h3 className="text-lg sm:text-xl font-bold text-primary mb-2">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl mb-2 sm:mb-3">{type.icon}</div>
+                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-1 sm:mb-2">
                     {type.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-600 mb-4">
+                  <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
                     {type.description}
                   </p>
 
-                  <div className="p-3 sm:p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
+                  <div className="p-2.5 sm:p-3 lg:p-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200">
                     <p className="text-xs italic text-gray-700 leading-relaxed">
                       {type.quote}
                     </p>
@@ -327,22 +327,22 @@ const TestSelectionPage = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200">
-            <h2 className="text-xl sm:text-2xl font-bold text-primary mb-4">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-3 sm:mb-4">
               📚 Select Subject
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3 lg:gap-4">
               {subjects.map((subject) => (
                 <div
                   key={subject.id}
                   onClick={() => handleSubjectSelect(subject.id)}
-                  className={`p-3 sm:p-4 rounded-lg cursor-pointer transition-all hover:shadow-md active:scale-95 ${
+                  className={`p-2.5 sm:p-3 lg:p-4 rounded-lg cursor-pointer transition-all hover:shadow-md active:scale-95 ${
                     selectedSubject === subject.id
                       ? 'bg-secondary text-white border-2 border-secondary'
                       : 'bg-white border border-gray-200'
                   }`}
                 >
-                  <div className="text-2xl sm:text-3xl mb-2">{subject.icon}</div>
-                  <p className={`font-bold mb-1 text-sm sm:text-base ${selectedSubject === subject.id ? 'text-white' : 'text-primary'}`}>
+                  <div className="text-xl sm:text-2xl lg:text-3xl mb-1 sm:mb-2">{subject.icon}</div>
+                  <p className={`font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm lg:text-base ${selectedSubject === subject.id ? 'text-white' : 'text-primary'}`}>
                     {subject.name}
                   </p>
                   <p className={`text-xs ${selectedSubject === subject.id ? 'text-white/80' : 'text-gray-600'}`}>
