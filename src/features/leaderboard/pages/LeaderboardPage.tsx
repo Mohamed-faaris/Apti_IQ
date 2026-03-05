@@ -7,6 +7,7 @@ import { QUERY_KEYS } from '../../../shared/constants';
 import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
 import { Badge } from '../../../shared/ui/Badge';
+import { useAuthStore } from '../../auth/store/authStore';
 import type { LeaderboardEntry, FilterType } from '../../../shared/types';
 
 const LeaderboardPage = () => {
@@ -14,6 +15,7 @@ const LeaderboardPage = () => {
   const [liveData, setLiveData] = useState<LeaderboardEntry[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [highlightedRank, setHighlightedRank] = useState<number | null>(null);
+  const user = useAuthStore((state) => state.user);
 
   const { data: initialData, isLoading } = useQuery({
     queryKey: [QUERY_KEYS.LEADERBOARD, filter],
@@ -22,6 +24,9 @@ const LeaderboardPage = () => {
 
   // Initialize live data from query result
   const displayData = liveData.length > 0 ? liveData : (initialData || []);
+
+  // Find current user's rank
+  const myRank = displayData.find(entry => entry.userId === user?.id);
 
   // Filter by search query
   const filteredData = displayData.filter(entry => 
@@ -149,136 +154,123 @@ const LeaderboardPage = () => {
         </Card>
       </motion.div>
 
-      {/* Top 3 Podium */}
+      {/* My Rank Card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h2 className="text-2xl font-bold text-primary mb-4">🎖️ Top Performers</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* 2nd Place */}
-          {displayData[1] && (
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="md:order-1"
-            >
-              <Card hover className="border-2 border-gray-300 bg-gradient-to-br from-gray-50 to-gray-100">
-                <div className="text-center">
-                  <div className="relative inline-block mb-4">
-                    <div className="text-7xl">{getMedalIcon(2)}</div>
-                    <div className="absolute -top-2 -right-2 bg-gray-400 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                      2
-                    </div>
+        <h2 className="text-xl sm:text-2xl font-bold text-primary mb-3 sm:mb-4">📍 My Rank</h2>
+        {myRank ? (
+          <Card className="border-4 border-secondary bg-gradient-to-br from-purple-50 to-blue-50">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+              {/* Rank Badge */}
+              <div className="flex-shrink-0">
+                {getMedalIcon(myRank.rank) ? (
+                  <div className="text-6xl sm:text-7xl">{getMedalIcon(myRank.rank)}</div>
+                ) : (
+                  <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center text-2xl sm:text-3xl font-bold ${getRankBadgeColor(myRank.rank)}`}>
+                    #{myRank.rank}
                   </div>
-                  <h3 className="text-xl font-bold text-primary mb-1">{displayData[1].name}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{displayData[1].college}</p>
-                  <div className="bg-white rounded-lg p-3 space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Score</span>
-                      <span className="text-lg font-bold text-secondary">{displayData[1].score}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Tests</span>
-                      <span className="font-medium">{displayData[1].testsCompleted}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Accuracy</span>
-                      <span className={`font-bold ${getAccuracyColor(displayData[1].accuracy)}`}>
-                        {displayData[1].accuracy}%
-                      </span>
-                    </div>
+                )}
+              </div>
+
+              {/* User Info */}
+              <div className="flex-1 text-center sm:text-left">
+                <div className="mb-2">
+                  {myRank.rank <= 3 && (
+                    <Badge variant="success" className="text-xs sm:text-sm">🏆 Podium Position!</Badge>
+                  )}
+                  {myRank.rank > 3 && myRank.rank <= 10 && (
+                    <Badge variant="primary" className="text-xs sm:text-sm">⭐ Top 10!</Badge>
+                  )}
+                  {myRank.rank > 10 && myRank.rank <= 50 && (
+                    <Badge variant="secondary" className="text-xs sm:text-sm">💪 Top 50!</Badge>
+                  )}
+                </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-primary mb-1">{myRank.name}</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3">{myRank.college}</p>
+                
+                {/* Stats Grid */}
+                <div className="grid grid-cols-3 gap-3 sm:gap-4">
+                  <div className="bg-white rounded-lg p-2 sm:p-3">
+                    <p className="text-xs text-gray-600 mb-1">Score</p>
+                    <p className="text-lg sm:text-xl font-bold text-secondary">{myRank.score}</p>
+                  </div>
+                  <div className="bg-white rounded-lg p-2 sm:p-3">
+                    <p className="text-xs text-gray-600 mb-1">Tests</p>
+                    <p className="text-lg sm:text-xl font-bold text-primary">{myRank.testsCompleted}</p>
+                  </div>
+                  <div className="bg-white rounded-lg p-2 sm:p-3">
+                    <p className="text-xs text-gray-600 mb-1">Accuracy</p>
+                    <p className={`text-lg sm:text-xl font-bold ${getAccuracyColor(myRank.accuracy)}`}>
+                      {myRank.accuracy}%
+                    </p>
                   </div>
                 </div>
-              </Card>
-            </motion.div>
-          )}
+              </div>
 
-          {/* 1st Place - Larger */}
-          {displayData[0] && (
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="md:order-2 md:-mt-4"
-            >
-              <Card hover className="border-4 border-yellow-400 bg-gradient-to-br from-yellow-50 to-orange-50 shadow-xl">
-                <div className="text-center">
-                  <div className="relative inline-block mb-4">
-                    <div className="text-8xl animate-bounce">{getMedalIcon(1)}</div>
-                    <div className="absolute -top-2 -right-2 bg-yellow-500 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold shadow-lg">
-                      1
-                    </div>
-                  </div>
-                  <div className="mb-2">
-                    <span className="inline-block bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold">
-                      👑 CHAMPION
+              {/* Rank Progress */}
+              <div className="flex-shrink-0 text-center">
+                <p className="text-xs text-gray-600 mb-2">Percentile</p>
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24">
+                  <svg className="transform -rotate-90 w-20 h-20 sm:w-24 sm:h-24">
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="36"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      className="text-gray-200"
+                    />
+                    <circle
+                      cx="40"
+                      cy="40"
+                      r="36"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      strokeDasharray={`${2 * Math.PI * 36}`}
+                      strokeDashoffset={`${2 * Math.PI * 36 * (1 - (100 - (myRank.rank / displayData.length * 100)) / 100)}`}
+                      className="text-secondary"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-base sm:text-lg font-bold text-primary">
+                      Top {Math.round((myRank.rank / displayData.length) * 100)}%
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-primary mb-1">{displayData[0].name}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{displayData[0].college}</p>
-                  <div className="bg-white rounded-lg p-4 space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Score</span>
-                      <span className="text-2xl font-bold text-secondary">{displayData[0].score}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Tests</span>
-                      <span className="text-lg font-medium">{displayData[0].testsCompleted}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Accuracy</span>
-                      <span className={`text-lg font-bold ${getAccuracyColor(displayData[0].accuracy)}`}>
-                        {displayData[0].accuracy}%
-                      </span>
-                    </div>
-                  </div>
                 </div>
-              </Card>
-            </motion.div>
-          )}
+              </div>
+            </div>
 
-          {/* 3rd Place */}
-          {displayData[2] && (
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="md:order-3"
-            >
-              <Card hover className="border-2 border-orange-300 bg-gradient-to-br from-orange-50 to-orange-100">
-                <div className="text-center">
-                  <div className="relative inline-block mb-4">
-                    <div className="text-7xl">{getMedalIcon(3)}</div>
-                    <div className="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
-                      3
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold text-primary mb-1">{displayData[2].name}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{displayData[2].college}</p>
-                  <div className="bg-white rounded-lg p-3 space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Score</span>
-                      <span className="text-lg font-bold text-secondary">{displayData[2].score}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Tests</span>
-                      <span className="font-medium">{displayData[2].testsCompleted}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Accuracy</span>
-                      <span className={`font-bold ${getAccuracyColor(displayData[2].accuracy)}`}>
-                        {displayData[2].accuracy}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          )}
-        </div>
+            {/* Motivational Message */}
+            <div className="mt-4 pt-4 border-t border-purple-200">
+              <p className="text-xs sm:text-sm text-center text-gray-700">
+                {myRank.rank === 1 && "🎉 You're the champion! Keep defending your position!"}
+                {myRank.rank === 2 && "🥈 So close to the top! One more push to reach #1!"}
+                {myRank.rank === 3 && "🥉 Great job! You're on the podium!"}
+                {myRank.rank > 3 && myRank.rank <= 10 && "⭐ You're in the top 10! Keep climbing!"}
+                {myRank.rank > 10 && myRank.rank <= 50 && "💪 You're doing great! Push for top 10!"}
+                {myRank.rank > 50 && "📈 Keep practicing to improve your rank!"}
+              </p>
+            </div>
+          </Card>
+        ) : (
+          <Card className="bg-gradient-to-r from-gray-50 to-gray-100 text-center">
+            <p className="text-3xl sm:text-4xl mb-3">🎯</p>
+            <p className="text-base sm:text-lg font-bold text-primary mb-2">
+              Complete a test to see your rank!
+            </p>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4">
+              Take your first test and compete with others
+            </p>
+            <Button variant="primary" onClick={() => window.location.href = '/test'}>
+              Take a Test Now →
+            </Button>
+          </Card>
+        )}
       </motion.div>
 
       {/* Search Bar */}
