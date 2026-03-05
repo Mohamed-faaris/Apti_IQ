@@ -20,8 +20,9 @@ export const DashboardNav = () => {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed bottom-6 right-6 z-50 bg-secondary text-white p-4 rounded-full shadow-lg hover:bg-secondary/90 transition-all active:scale-95"
+        className="lg:hidden fixed bottom-6 right-6 z-[100] bg-secondary text-white p-4 rounded-full shadow-2xl hover:bg-secondary/90 transition-all active:scale-95 border-2 border-white"
         aria-label="Toggle menu"
+        style={{ boxShadow: '0 10px 40px rgba(139, 69, 19, 0.3)' }}
       >
         <svg
           className="w-6 h-6"
@@ -50,7 +51,7 @@ export const DashboardNav = () => {
       {/* Overlay */}
       {isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          className="lg:hidden fixed inset-0 bg-black/50 z-[90]"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -58,7 +59,7 @@ export const DashboardNav = () => {
       {/* Sidebar */}
       <div
         className={`
-          fixed lg:sticky top-0 lg:top-20 left-0 h-full lg:h-auto w-64 lg:w-64 z-40
+          fixed lg:sticky top-0 lg:top-20 left-0 h-full lg:h-auto w-64 lg:w-64 z-[95]
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}

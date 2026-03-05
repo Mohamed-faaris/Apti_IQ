@@ -26,17 +26,20 @@ const ProgressPage = () => {
     : 0;
 
   return (
-    <div className="flex gap-8">
-      <DashboardNav />
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+      {/* Left Navigation - Hidden on mobile, shown in hamburger menu */}
+      <div className="hidden lg:block">
+        <DashboardNav />
+      </div>
 
-      <div className="flex-1 space-y-8">
+      <div className="flex-1 space-y-4 sm:space-y-6 lg:space-y-8 px-3 sm:px-4 lg:px-0 pb-20 lg:pb-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <h1 className="text-4xl font-bold text-primary mb-2">Learning Progress</h1>
-          <p className="text-gray-600">Track your journey across all subjects</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary mb-1 sm:mb-2">Learning Progress</h1>
+          <p className="text-xs sm:text-sm text-gray-600">Track your journey across all subjects</p>
         </motion.div>
 
         {/* Overall Progress Card */}
