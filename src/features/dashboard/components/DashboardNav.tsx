@@ -8,6 +8,7 @@ export const DashboardNav = () => {
 
   const navItems = [
     { path: '/dashboard', label: 'Overview', icon: '📊' },
+    { path: '/analytics', label: 'Analytics', icon: '📈' },
     { path: '/badges', label: 'Badges & Streaks', icon: '🏅' },
     { path: '/tournaments', label: 'Tournaments', icon: '🏆' },
   ];

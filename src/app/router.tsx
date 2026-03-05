@@ -19,6 +19,7 @@ const TestPage = lazy(() => import('../features/test-engine/pages/TestPage'));
 const TestResultsPage = lazy(() => import('../features/test-engine/pages/TestResultsPage'));
 const LeaderboardPage = lazy(() => import('../features/leaderboard/pages/LeaderboardPage'));
 const AnalyticsPage = lazy(() => import('../features/analytics/pages/AnalyticsPage'));
+const StudentAnalyticsPage = lazy(() => import('../features/analytics/pages/StudentAnalyticsPage'));
 const ProfilePage = lazy(() => import('../features/profile/pages/ProfilePage'));
 const AdminPage = lazy(() => import('../features/admin/pages/AdminPage'));
 const ProgressPage = lazy(() => import('../features/dashboard/pages/ProgressPage'));
@@ -262,7 +263,7 @@ export const AppRouter = () => {
           element={
             <ProtectedRoute>
               <Suspense fallback={<LoadingFallback />}>
-                <AnalyticsPage />
+                <StudentAnalyticsPage />
               </Suspense>
             </ProtectedRoute>
           }
