@@ -152,14 +152,14 @@ export const DashboardPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 space-y-6 sm:space-y-8 lg:space-y-10 px-4 sm:px-6 lg:px-0">
+      <div className="flex-1 space-y-4 sm:space-y-6 lg:space-y-8 px-3 sm:px-4 lg:px-0 pb-20 lg:pb-8">
       {/* Header - Calm, disciplined tone */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">Dashboard</h1>
-        <p className="text-sm sm:text-base text-gray-600 mt-2">Your daily improvement starts here</p>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary">Dashboard</h1>
+        <p className="text-xs sm:text-sm text-gray-600 mt-1">Your daily improvement starts here</p>
       </motion.div>
 
       {/* 🎯 STRATEGIC SECTION 1: SMART RECOMMENDATION (Behavior Engine) */}
@@ -173,18 +173,18 @@ export const DashboardPage = () => {
           recommendation.urgency === 'medium' ? 'border-blue-500 bg-blue-50/30' :
           'border-green-500 bg-green-50/30'
         }`}>
-          <div className="flex flex-col sm:flex-row items-start gap-4">
-            <div className="text-4xl sm:text-5xl flex-shrink-0">{recommendation.icon}</div>
+          <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
+            <div className="text-3xl sm:text-4xl lg:text-5xl flex-shrink-0">{recommendation.icon}</div>
             <div className="flex-1">
               <div className="flex items-start justify-between mb-2">
                 <div>
                   <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
                     Recommended For You
                   </p>
-                  <h3 className="text-xl sm:text-2xl font-bold text-primary mb-2">
+                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-2">
                     {recommendation.title}
                   </h3>
-                  <p className="text-sm sm:text-base text-gray-700 mb-4">
+                  <p className="text-xs sm:text-sm text-gray-700 mb-3 sm:mb-4">
                     {recommendation.description}
                   </p>
                 </div>
@@ -193,7 +193,7 @@ export const DashboardPage = () => {
                 variant="primary"
                 size="lg"
                 onClick={() => navigate(recommendation.actionUrl)}
-                className="shadow-md w-full sm:w-auto"
+                className="shadow-md w-full sm:w-auto text-sm"
               >
                 {recommendation.action} →
               </Button>
@@ -204,8 +204,8 @@ export const DashboardPage = () => {
 
       {/* 🎯 STRATEGIC SECTION 2: PERFORMANCE SNAPSHOT (Tier-based hierarchy) */}
       <div>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-4">
-          <h2 className="text-lg sm:text-xl font-semibold text-primary">Performance Snapshot</h2>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3 sm:mb-4">
+          <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-primary">Performance Snapshot</h2>
           {userPercentile && (
             <motion.p
               initial={{ opacity: 0, scale: 0.9 }}
@@ -218,7 +218,7 @@ export const DashboardPage = () => {
           )}
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {/* Tier 1: Streak - Emotional anchor with protective messaging */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -229,15 +229,15 @@ export const DashboardPage = () => {
               <Card hover className="border-2 border-orange-200">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <p className="text-sm text-gray-600 mb-1">Current Streak</p>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">Current Streak</p>
                     <motion.p
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.4 }}
-                      className="text-3xl sm:text-4xl font-bold text-primary mb-2"
+                      className="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary mb-1 sm:mb-2"
                     >
                       {stats?.currentStreak || 0}
-                      <span className="text-lg sm:text-xl text-gray-600"> days</span>
+                      <span className="text-base sm:text-lg lg:text-xl text-gray-600"> days</span>
                     </motion.p>
                     {(stats?.currentStreak || 0) > 0 && (
                       <p className="text-xs text-orange-600 font-medium">
@@ -245,7 +245,7 @@ export const DashboardPage = () => {
                       </p>
                     )}
                   </div>
-                  <span className="text-3xl sm:text-4xl">🔥</span>
+                  <span className="text-2xl sm:text-3xl lg:text-4xl">🔥</span>
                 </div>
               </Card>
               <div className="absolute inset-0 bg-gradient-to-br from-orange-100 to-transparent rounded-lg -z-10 opacity-40" />
@@ -289,13 +289,13 @@ export const DashboardPage = () => {
             <Card hover>
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <p className="text-sm text-gray-600 mb-1">Improvement Focus</p>
-                  <p className="text-lg sm:text-xl font-bold text-primary mb-2">
+                  <p className="text-xs sm:text-sm text-gray-600 mb-1">Improvement Focus</p>
+                  <p className="text-base sm:text-lg lg:text-xl font-bold text-primary mb-1 sm:mb-2">
                     {stats?.weakestSubject || 'N/A'}
                   </p>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-base sm:text-lg font-bold text-accent">62%</span>
-                    <span className="text-xs text-gray-600">3 lessons to mastery</span>
+                    <span className="text-sm sm:text-base lg:text-lg font-bold text-accent">62%</span>
+                    <span className="text-xs text-gray-600">3 lessons</span>
                   </div>
                   <div className="bg-gray-200 rounded-full h-2">
                     <motion.div
@@ -306,7 +306,7 @@ export const DashboardPage = () => {
                     />
                   </div>
                 </div>
-                <span className="text-2xl sm:text-3xl">📚</span>
+                <span className="text-xl sm:text-2xl lg:text-3xl">📚</span>
               </div>
             </Card>
           </motion.div>
@@ -319,23 +319,23 @@ export const DashboardPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
       >
-        <h2 className="text-lg sm:text-xl font-semibold text-primary mb-4">📊 Areas to Improve</h2>
-        <p className="text-xs sm:text-sm text-gray-600 mb-6">Based on your recent test performance</p>
+        <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-primary mb-2 sm:mb-3">📊 Areas to Improve</h2>
+        <p className="text-xs sm:text-sm text-gray-600 mb-4">Based on your recent test performance</p>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
           {/* Weak Subject 1 */}
           <Card className="border-l-4 border-red-400">
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <div className="text-3xl sm:text-4xl">⚠️</div>
+            <div className="flex flex-col sm:flex-row items-start gap-3">
+              <div className="text-2xl sm:text-3xl">⚠️</div>
               <div className="flex-1 w-full">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                  <h3 className="text-base sm:text-lg font-bold text-primary">Verbal Ability</h3>
-                  <Badge variant="danger">45% Accuracy</Badge>
+                  <h3 className="text-sm sm:text-base lg:text-lg font-bold text-primary">Verbal Ability</h3>
+                  <Badge variant="danger" className="text-xs">45% Accuracy</Badge>
                 </div>
-                <p className="text-sm text-gray-700 mb-3">
+                <p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3">
                   You struggled with Reading Comprehension and Vocabulary questions in your last 3 tests.
                 </p>
-                <div className="space-y-2 mb-4">
+                <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-600">• Reading Comprehension</span>
                     <span className="text-red-600 font-medium">40%</span>
@@ -353,7 +353,7 @@ export const DashboardPage = () => {
                   variant="primary"
                   size="sm"
                   onClick={() => navigate('/subjects/3/chapters')}
-                  className="w-full"
+                  className="w-full text-xs sm:text-sm"
                 >
                   Study Verbal Ability →
                 </Button>
@@ -363,17 +363,17 @@ export const DashboardPage = () => {
 
           {/* Weak Subject 2 */}
           <Card className="border-l-4 border-orange-400">
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <div className="text-3xl sm:text-4xl">📉</div>
+            <div className="flex flex-col sm:flex-row items-start gap-3">
+              <div className="text-2xl sm:text-3xl">📉</div>
               <div className="flex-1 w-full">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                  <h3 className="text-base sm:text-lg font-bold text-primary">Logical Reasoning</h3>
-                  <Badge variant="warning">58% Accuracy</Badge>
+                  <h3 className="text-sm sm:text-base lg:text-lg font-bold text-primary">Logical Reasoning</h3>
+                  <Badge variant="warning" className="text-xs">58% Accuracy</Badge>
                 </div>
-                <p className="text-sm text-gray-700 mb-3">
+                <p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3">
                   Puzzles and Syllogisms need more practice. Focus on pattern recognition.
                 </p>
-                <div className="space-y-2 mb-4">
+                <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-600">• Puzzles</span>
                     <span className="text-orange-600 font-medium">52%</span>
@@ -391,7 +391,7 @@ export const DashboardPage = () => {
                   variant="primary"
                   size="sm"
                   onClick={() => navigate('/subjects/2/chapters')}
-                  className="w-full"
+                  className="w-full text-xs sm:text-sm"
                 >
                   Study Logical Reasoning →
                 </Button>
@@ -401,17 +401,17 @@ export const DashboardPage = () => {
 
           {/* Strong Subject - Encouragement */}
           <Card className="border-l-4 border-green-400">
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <div className="text-3xl sm:text-4xl">✅</div>
+            <div className="flex flex-col sm:flex-row items-start gap-3">
+              <div className="text-2xl sm:text-3xl">✅</div>
               <div className="flex-1 w-full">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-                  <h3 className="text-base sm:text-lg font-bold text-primary">Data Interpretation</h3>
-                  <Badge variant="success">85% Accuracy</Badge>
+                  <h3 className="text-sm sm:text-base lg:text-lg font-bold text-primary">Data Interpretation</h3>
+                  <Badge variant="success" className="text-xs">85% Accuracy</Badge>
                 </div>
-                <p className="text-sm text-gray-700 mb-3">
+                <p className="text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3">
                   Excellent work! You're mastering charts and graphs. Keep it up!
                 </p>
-                <div className="space-y-2 mb-4">
+                <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-600">• Tables</span>
                     <span className="text-green-600 font-medium">88%</span>
@@ -429,7 +429,7 @@ export const DashboardPage = () => {
                   variant="outline"
                   size="sm"
                   onClick={() => navigate('/subjects/4/chapters')}
-                  className="w-full"
+                  className="w-full text-xs sm:text-sm"
                 >
                   Continue Practicing →
                 </Button>
@@ -439,32 +439,32 @@ export const DashboardPage = () => {
 
           {/* Study Plan Recommendation */}
           <Card className="border-l-4 border-blue-400 bg-blue-50/30">
-            <div className="flex flex-col sm:flex-row items-start gap-4">
-              <div className="text-3xl sm:text-4xl">📝</div>
+            <div className="flex flex-col sm:flex-row items-start gap-3">
+              <div className="text-2xl sm:text-3xl">📝</div>
               <div className="flex-1 w-full">
-                <h3 className="text-base sm:text-lg font-bold text-primary mb-2">Recommended Study Plan</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-sm sm:text-base lg:text-lg font-bold text-primary mb-2">Recommended Study Plan</h3>
+                <p className="text-xs sm:text-sm text-gray-700 mb-3 sm:mb-4">
                   Based on your performance, here's your personalized study schedule:
                 </p>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
-                    <span className="text-xl">1️⃣</span>
+                <div className="space-y-2 sm:space-y-3">
+                  <div className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 bg-white rounded-lg">
+                    <span className="text-base sm:text-lg">1️⃣</span>
                     <div className="flex-1">
-                      <p className="font-medium text-primary text-sm">Week 1-2: Verbal Ability</p>
+                      <p className="font-medium text-primary text-xs sm:text-sm">Week 1-2: Verbal Ability</p>
                       <p className="text-xs text-gray-600">Focus on Reading Comprehension (2 lessons/day)</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
-                    <span className="text-xl">2️⃣</span>
+                  <div className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 bg-white rounded-lg">
+                    <span className="text-base sm:text-lg">2️⃣</span>
                     <div className="flex-1">
-                      <p className="font-medium text-primary text-sm">Week 3: Logical Reasoning</p>
+                      <p className="font-medium text-primary text-xs sm:text-sm">Week 3: Logical Reasoning</p>
                       <p className="text-xs text-gray-600">Practice Puzzles and Syllogisms</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-3 p-3 bg-white rounded-lg">
-                    <span className="text-xl">3️⃣</span>
+                  <div className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 bg-white rounded-lg">
+                    <span className="text-base sm:text-lg">3️⃣</span>
                     <div className="flex-1">
-                      <p className="font-medium text-primary text-sm">Week 4: Full Mock Tests</p>
+                      <p className="font-medium text-primary text-xs sm:text-sm">Week 4: Full Mock Tests</p>
                       <p className="text-xs text-gray-600">Test your improvement</p>
                     </div>
                   </div>
@@ -479,7 +479,7 @@ export const DashboardPage = () => {
       <div>
         {/* Recent Activity */}
         <Card>
-          <h2 className="text-lg sm:text-xl font-semibold text-primary mb-6">Recent Activity</h2>
+          <h2 className="text-base sm:text-lg lg:text-xl font-semibold text-primary mb-4 sm:mb-6">Recent Activity</h2>
           
           {hasActivity ? (
             <div className="space-y-3">
@@ -491,7 +491,7 @@ export const DashboardPage = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ delay: 0.4 + i * 0.1 }}
-                    className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-smooth cursor-pointer group active:scale-98"
+                    className="flex items-center gap-3 sm:gap-4 p-2.5 sm:p-3 bg-gray-50 rounded-lg hover:bg-gray-100 hover:shadow-sm transition-smooth cursor-pointer group active:scale-98"
                     onClick={() => {
                       if (activity.type === 'test') navigate('/test');
                       if (activity.type === 'lesson') navigate('/subjects');
