@@ -8,13 +8,8 @@ export const DashboardNav = () => {
 
   const navItems = [
     { path: '/dashboard', label: 'Overview', icon: '📊' },
-    { path: '/my-classes', label: 'My Classes', icon: '📚' },
-    { path: '/subjects', label: 'Learn', icon: '📖' },
-    { path: '/test', label: 'Tests', icon: '📝' },
-    { path: '/progress', label: 'Progress', icon: '📈' },
     { path: '/badges', label: 'Badges & Streaks', icon: '🏅' },
     { path: '/tournaments', label: 'Tournaments', icon: '🏆' },
-    { path: '/leaderboard', label: 'Leaderboard', icon: '👑' },
   ];
 
   const isActive = (path: string) => location.pathname === path;

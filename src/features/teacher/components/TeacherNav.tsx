@@ -6,10 +6,6 @@ export const TeacherNav = () => {
 
   const navItems = [
     { path: '/teacher/dashboard', label: 'Overview', icon: '📊' },
-    { path: '/teacher/classes', label: 'My Classes', icon: '👥' },
-    { path: '/teacher/create-test', label: 'Create Test', icon: '🧪' },
-    { path: '/teacher/students', label: 'Students', icon: '👨‍🎓' },
-    { path: '/teacher/analytics', label: 'Analytics', icon: '📈' },
   ];
 
   const isActive = (path: string) => location.pathname === path;

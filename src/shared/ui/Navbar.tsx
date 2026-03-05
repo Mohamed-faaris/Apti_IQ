@@ -32,14 +32,23 @@ export const Navbar = () => {
 
           {/* Center: Desktop Navigation */}
           {isAuthenticated && (
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-6">
               {user?.role === 'teacher' ? (
                 <>
                   <Link to="/teacher/dashboard" className={navLinkClass('/teacher/dashboard')}>
                     Dashboard
                   </Link>
                   <Link to="/teacher/classes" className={navLinkClass('/teacher/classes')}>
-                    Classes
+                    My Classes
+                  </Link>
+                  <Link to="/teacher/create-test" className={navLinkClass('/teacher/create-test')}>
+                    Create Test
+                  </Link>
+                  <Link to="/teacher/students" className={navLinkClass('/teacher/students')}>
+                    Students
+                  </Link>
+                  <Link to="/teacher/analytics" className={navLinkClass('/teacher/analytics')}>
+                    Analytics
                   </Link>
                 </>
               ) : (
@@ -50,8 +59,17 @@ export const Navbar = () => {
                   <Link to="/my-classes" className={navLinkClass('/my-classes')}>
                     My Classes
                   </Link>
+                  <Link to="/subjects" className={navLinkClass('/subjects')}>
+                    Learn
+                  </Link>
                   <Link to="/test" className={navLinkClass('/test')}>
-                    Test
+                    Tests
+                  </Link>
+                  <Link to="/progress" className={navLinkClass('/progress')}>
+                    Progress
+                  </Link>
+                  <Link to="/leaderboard" className={navLinkClass('/leaderboard')}>
+                    Leaderboard
                   </Link>
                 </>
               )}
@@ -158,7 +176,28 @@ export const Navbar = () => {
                     className={mobileNavLinkClass('/teacher/classes')}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    👥 Classes
+                    📚 My Classes
+                  </Link>
+                  <Link
+                    to="/teacher/create-test"
+                    className={mobileNavLinkClass('/teacher/create-test')}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    ✏️ Create Test
+                  </Link>
+                  <Link
+                    to="/teacher/students"
+                    className={mobileNavLinkClass('/teacher/students')}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    👥 Students
+                  </Link>
+                  <Link
+                    to="/teacher/analytics"
+                    className={mobileNavLinkClass('/teacher/analytics')}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    📈 Analytics
                   </Link>
                 </>
               ) : (
@@ -178,11 +217,32 @@ export const Navbar = () => {
                     📚 My Classes
                   </Link>
                   <Link
+                    to="/subjects"
+                    className={mobileNavLinkClass('/subjects')}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    📖 Learn
+                  </Link>
+                  <Link
                     to="/test"
                     className={mobileNavLinkClass('/test')}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    📝 Test
+                    📝 Tests
+                  </Link>
+                  <Link
+                    to="/progress"
+                    className={mobileNavLinkClass('/progress')}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    📈 Progress
+                  </Link>
+                  <Link
+                    to="/leaderboard"
+                    className={mobileNavLinkClass('/leaderboard')}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    👑 Leaderboard
                   </Link>
                 </>
               )}
