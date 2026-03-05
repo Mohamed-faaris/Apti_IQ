@@ -59,6 +59,9 @@ export const Navbar = () => {
                   <Link to="/test" className={navLinkClass('/test')}>
                     Test
                   </Link>
+                  <Link to="/badges" className={navLinkClass('/badges')}>
+                    Badges
+                  </Link>
                   <Link to="/tournaments" className={navLinkClass('/tournaments')}>
                     Tournaments
                   </Link>
@@ -209,6 +212,13 @@ export const Navbar = () => {
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     📝 Test
+                  </Link>
+                  <Link
+                    to="/badges"
+                    className={mobileNavLinkClass('/badges')}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    🏆 Badges & Streaks
                   </Link>
                   <Link
                     to="/tournaments"

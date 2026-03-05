@@ -23,6 +23,7 @@ const ProfilePage = lazy(() => import('../features/profile/pages/ProfilePage'));
 const AdminPage = lazy(() => import('../features/admin/pages/AdminPage'));
 const ProgressPage = lazy(() => import('../features/dashboard/pages/ProgressPage'));
 const TournamentsPage = lazy(() => import('../features/tournaments/pages/TournamentsPage'));
+const BadgesStreaksPage = lazy(() => import('../features/achievements/pages/BadgesStreaksPage'));
 const TeacherDashboard = lazy(() => import('../features/teacher/pages/TeacherDashboard'));
 const StudentsPage = lazy(() => import('../features/teacher/pages/StudentsPage'));
 const CreateTestPage = lazy(() => import('../features/teacher/pages/CreateTestPage'));
@@ -198,6 +199,16 @@ export const AppRouter = () => {
             <ProtectedRoute>
               <Suspense fallback={<LoadingFallback />}>
                 <TournamentsPage />
+              </Suspense>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/badges"
+          element={
+            <ProtectedRoute>
+              <Suspense fallback={<LoadingFallback />}>
+                <BadgesStreaksPage />
               </Suspense>
             </ProtectedRoute>
           }
