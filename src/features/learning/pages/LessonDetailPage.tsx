@@ -1,9 +1,10 @@
-﻿import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { api } from '../../../services/api';
 import { QUERY_KEYS } from '../../../shared/constants';
+import { NotebookPage } from '../../../shared/ui/NotebookPage';
 import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
 import { Badge } from '../../../shared/ui/Badge';
@@ -89,19 +90,19 @@ const LessonDetailPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <Card>
+          <NotebookPage showLines={true} showMargin={true}>
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-3">
                 <Badge variant="default">Lesson {lesson?.order}</Badge>
                 <span className="text-sm text-gray-600">⏱️ {lesson?.duration} minutes</span>
               </div>
-              <h1 className="text-4xl font-bold text-primary">{lesson?.name}</h1>
+              <h1 className="text-4xl font-bold text-primary font-handwriting">{lesson?.name}</h1>
             </div>
             
-            <div className="prose prose-lg max-w-none">
+            <div className="prose prose-lg max-w-none text-gray-800 leading-relaxed">
               <div dangerouslySetInnerHTML={{ __html: lesson?.content || '' }} />
             </div>
-          </Card>
+          </NotebookPage>
         </motion.div>
 
         {lesson?.quiz && !lesson.completed && (

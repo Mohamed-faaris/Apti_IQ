@@ -299,17 +299,19 @@ export const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute requireAdmin>
-              <Suspense fallback={<LoadingFallback />}>
-                <AdminPage />
-              </Suspense>
-            </ProtectedRoute>
-          }
-        />
       </Route>
+
+      {/* Admin route - standalone without navbar */}
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute requireAdmin>
+            <Suspense fallback={<LoadingFallback />}>
+              <AdminPage />
+            </Suspense>
+          </ProtectedRoute>
+        }
+      />
 
       {/* Catch all */}
       <Route path="*" element={<Navigate to="/" replace />} />

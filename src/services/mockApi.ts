@@ -408,6 +408,38 @@ export const mockApi = {
   // Auth
   login: async (email: string): Promise<User> => {
     await delay();
+    
+    // Admin credentials for testing
+    if (email === 'admin@aptiq.com') {
+      const adminUser: User = {
+        id: 'admin-1',
+        email: 'admin@aptiq.com',
+        name: 'Admin User',
+        college: 'AptIQ Platform',
+        role: 'admin',
+        badges: [],
+        createdAt: new Date().toISOString(),
+      };
+      mockStore.currentUser = adminUser;
+      return adminUser;
+    }
+    
+    // Teacher credentials for testing
+    if (email === 'teacher@aptiq.com') {
+      const teacherUser: User = {
+        id: 'teacher-1',
+        email: 'teacher@aptiq.com',
+        name: 'Prof. Smith',
+        college: 'AptIQ Platform',
+        role: 'teacher',
+        badges: [],
+        createdAt: new Date().toISOString(),
+      };
+      mockStore.currentUser = teacherUser;
+      return teacherUser;
+    }
+    
+    // Default student user
     const user: User = {
       id: '1',
       email,

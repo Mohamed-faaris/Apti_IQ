@@ -68,6 +68,11 @@ export const Navbar = () => {
                   <Link to="/leaderboard" className={navLinkClass('/leaderboard')}>
                     Leaderboard
                   </Link>
+                  {user?.role === 'admin' && (
+                    <Link to="/admin" className={navLinkClass('/admin')}>
+                      Admin
+                    </Link>
+                  )}
                 </>
               )}
             </div>
@@ -262,6 +267,17 @@ export const Navbar = () => {
                   >
                     👑 Leaderboard
                   </Link>
+                  
+                  {/* Admin Link for Admin Users */}
+                  {user?.role === 'admin' && (
+                    <Link
+                      to="/admin"
+                      className={mobileNavLinkClass('/admin')}
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      🛡️ Admin Panel
+                    </Link>
+                  )}
                   
                   {/* Dashboard Sub-menu */}
                   <div className="pt-2 mt-2 border-t border-gray-200">

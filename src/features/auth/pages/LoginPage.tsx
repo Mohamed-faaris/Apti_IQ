@@ -38,10 +38,10 @@ export const LoginPage = () => {
       toast.success('Login successful!');
       
       // Redirect based on user role
-      if (user.role === 'teacher') {
-        navigate('/teacher/dashboard');
-      } else if (user.role === 'admin') {
+      if (user.role === 'admin') {
         navigate('/admin');
+      } else if (user.role === 'teacher') {
+        navigate('/teacher/dashboard');
       } else {
         navigate('/dashboard');
       }
@@ -62,6 +62,17 @@ export const LoginPage = () => {
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-primary mb-2">Welcome Back</h1>
             <p className="text-gray-600">Sign in to continue your learning journey</p>
+          </div>
+
+          {/* Test Credentials Info */}
+          <div className="mb-6 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+            <p className="text-xs font-medium text-gray-600 mb-2">Test Credentials:</p>
+            <div className="space-y-1 text-xs text-gray-700">
+              <p>Admin: <span className="font-mono">admin@aptiq.com</span></p>
+              <p>Teacher: <span className="font-mono">teacher@aptiq.com</span></p>
+              <p>Student: Any other email</p>
+              <p className="text-gray-500 mt-1">Password: Any 6+ characters</p>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
