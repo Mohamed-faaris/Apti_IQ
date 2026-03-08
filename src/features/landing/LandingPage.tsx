@@ -425,26 +425,24 @@ export const LandingPage = () => {
           </p>
         </motion.div>
 
-        {/* Founder */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center mb-12"
-        >
-          <div className="w-full max-w-xs">
+        {/* Team Members Grid - All in one structured layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {/* Founder - First position */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0 }}
+          >
             <Card className="h-full bg-gradient-to-br from-yellow-50 to-yellow-100 border-2 border-yellow-200 hover:shadow-xl transition-all">
               <div className="text-5xl mb-3">⭐</div>
               <h3 className="text-xl font-bold text-primary mb-2">Saktheesh K</h3>
               <p className="text-sm font-semibold text-secondary mb-2">Founder & Team Lead</p>
               <p className="text-xs text-gray-600">🎓 P.S.R Engineering College</p>
             </Card>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        {/* Team Members Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {/* Row 1 */}
+          {/* Row 1 - Remaining 3 members */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -487,6 +485,7 @@ export const LandingPage = () => {
             </Card>
           </motion.div>
 
+          {/* Row 2 - 4 members */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -501,7 +500,6 @@ export const LandingPage = () => {
             </Card>
           </motion.div>
 
-          {/* Row 2 */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
