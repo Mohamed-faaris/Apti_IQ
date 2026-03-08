@@ -432,12 +432,12 @@ export const LandingPage = () => {
           viewport={{ once: true }}
           className="flex justify-center mb-12"
         >
-          <Card className="max-w-md bg-gradient-to-br from-yellow-50 to-yellow-100 border-2 border-yellow-200">
-            <div className="text-center">
-              <div className="text-6xl mb-4">⭐</div>
-              <h3 className="text-2xl font-bold text-primary mb-2">Saktheesh K</h3>
-              <p className="text-lg font-semibold text-secondary mb-2">Founder & Team Lead</p>
-              <p className="text-sm text-gray-600">🎓 P.S.R Engineering College</p>
+          <Card className="w-full max-w-lg bg-gradient-to-br from-yellow-50 to-yellow-100 border-3 border-yellow-300 shadow-xl">
+            <div className="text-center py-6">
+              <div className="text-7xl mb-4">⭐</div>
+              <h3 className="text-3xl font-bold text-primary mb-2">Saktheesh K</h3>
+              <p className="text-xl font-semibold text-secondary mb-2">Founder & Team Lead</p>
+              <p className="text-base text-gray-600">🎓 P.S.R Engineering College</p>
             </div>
           </Card>
         </motion.div>
@@ -481,7 +481,7 @@ export const LandingPage = () => {
           >
             <Card className="h-full bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-200 hover:shadow-xl transition-all">
               <div className="text-5xl mb-3">💻</div>
-              <h3 className="text-xl font-bold text-primary mb-2">Mohan Kumar</h3>
+              <h3 className="text-xl font-bold text-primary mb-2">Mohan Kumar T</h3>
               <p className="text-sm font-semibold text-secondary mb-2">Full Stack Developer</p>
               <p className="text-xs text-gray-600">🎓 P.S.R.R Engineering College</p>
             </Card>
