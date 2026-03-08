@@ -66,28 +66,28 @@ const initializeMockData = () => {
 
   mockStore.lessons = [
     // Number Systems lessons
-    { id: '1', chapterId: '1', name: 'Introduction to Numbers', content: '# Introduction to Numbers\n\nNumbers are the foundation of mathematics. Learn about natural numbers, whole numbers, integers, and rational numbers.', duration: 15, completed: true, order: 1 },
-    { id: '2', chapterId: '1', name: 'Prime Numbers', content: '# Prime Numbers\n\nA prime number is divisible only by 1 and itself. Learn identification techniques and properties.', duration: 20, completed: true, order: 2 },
-    { id: '3', chapterId: '1', name: 'HCF and LCM', content: '# HCF and LCM\n\nHighest Common Factor and Lowest Common Multiple are fundamental concepts in number theory.', duration: 25, completed: true, order: 3 },
-    { id: '4', chapterId: '1', name: 'Divisibility Rules', content: '# Divisibility Rules\n\nQuick tricks to check if a number is divisible by 2, 3, 4, 5, 6, 8, 9, 10, and 11.', duration: 18, completed: false, order: 4 },
-    { id: '5', chapterId: '1', name: 'Number Series', content: '# Number Series\n\nIdentify patterns in sequences and find missing numbers.', duration: 22, completed: false, order: 5 },
+    { id: '1', chapterId: '1', name: 'Introduction to Numbers', content: '# Introduction to Numbers\n\nNumbers are the foundation of mathematics. Learn about natural numbers, whole numbers, integers, and rational numbers.', duration: 15, completed: true, order: 1, videoUrl: 'https://www.youtube.com/embed/5SqLJRUNh3A' },
+    { id: '2', chapterId: '1', name: 'Prime Numbers', content: '# Prime Numbers\n\nA prime number is divisible only by 1 and itself. Learn identification techniques and properties.', duration: 20, completed: true, order: 2, videoUrl: 'https://www.youtube.com/embed/mIStB5X4U8M' },
+    { id: '3', chapterId: '1', name: 'HCF and LCM', content: '# HCF and LCM\n\nHighest Common Factor and Lowest Common Multiple are fundamental concepts in number theory.', duration: 25, completed: true, order: 3, videoUrl: 'https://www.youtube.com/embed/Jj7l8fJcKAw' },
+    { id: '4', chapterId: '1', name: 'Divisibility Rules', content: '# Divisibility Rules\n\nQuick tricks to check if a number is divisible by 2, 3, 4, 5, 6, 8, 9, 10, and 11.', duration: 18, completed: false, order: 4, videoUrl: 'https://www.youtube.com/embed/UNgr3IxCUKA' },
+    { id: '5', chapterId: '1', name: 'Number Series', content: '# Number Series\n\nIdentify patterns in sequences and find missing numbers.', duration: 22, completed: false, order: 5, videoUrl: 'https://www.youtube.com/embed/Qhaz36TZG5Y' },
     
     // Algebra lessons
-    { id: '6', chapterId: '2', name: 'Linear Equations', content: '# Linear Equations\n\nSolve equations of the form ax + b = c.', duration: 20, completed: true, order: 1 },
-    { id: '7', chapterId: '2', name: 'Quadratic Equations', content: '# Quadratic Equations\n\nSolve ax² + bx + c = 0 using factorization and formula.', duration: 30, completed: false, order: 2 },
-    { id: '8', chapterId: '2', name: 'Inequalities', content: '# Inequalities\n\nUnderstand and solve linear inequalities.', duration: 18, completed: false, order: 3 },
+    { id: '6', chapterId: '2', name: 'Linear Equations', content: '# Linear Equations\n\nSolve equations of the form ax + b = c.', duration: 20, completed: true, order: 1, videoUrl: 'https://www.youtube.com/embed/WUvTyaaNkzM' },
+    { id: '7', chapterId: '2', name: 'Quadratic Equations', content: '# Quadratic Equations\n\nSolve ax² + bx + c = 0 using factorization and formula.', duration: 30, completed: false, order: 2, videoUrl: 'https://www.youtube.com/embed/i7idZfS8t8w' },
+    { id: '8', chapterId: '2', name: 'Inequalities', content: '# Inequalities\n\nUnderstand and solve linear inequalities.', duration: 18, completed: false, order: 3, videoUrl: 'https://www.youtube.com/embed/VqKq78PVO9g' },
     
     // Puzzles lessons
-    { id: '9', chapterId: '6', name: 'Seating Arrangements', content: '# Seating Arrangements\n\nSolve circular and linear seating puzzles.', duration: 25, completed: true, order: 1 },
-    { id: '10', chapterId: '6', name: 'Floor Puzzles', content: '# Floor Puzzles\n\nArrange people across different floors based on conditions.', duration: 28, completed: false, order: 2 },
+    { id: '9', chapterId: '6', name: 'Seating Arrangements', content: '# Seating Arrangements\n\nSolve circular and linear seating puzzles.', duration: 25, completed: true, order: 1, videoUrl: 'https://www.youtube.com/embed/Yx8Tn0UT8Hs' },
+    { id: '10', chapterId: '6', name: 'Floor Puzzles', content: '# Floor Puzzles\n\nArrange people across different floors based on conditions.', duration: 28, completed: false, order: 2, videoUrl: 'https://www.youtube.com/embed/8p7Yx8tn0hs' },
     
     // Reading Comprehension lessons
-    { id: '11', chapterId: '10', name: 'Main Idea Questions', content: '# Main Idea Questions\n\nIdentify the central theme of a passage.', duration: 20, completed: false, order: 1 },
-    { id: '12', chapterId: '10', name: 'Inference Questions', content: '# Inference Questions\n\nDraw logical conclusions from the passage.', duration: 22, completed: false, order: 2 },
+    { id: '11', chapterId: '10', name: 'Main Idea Questions', content: '# Main Idea Questions\n\nIdentify the central theme of a passage.', duration: 20, completed: false, order: 1, videoUrl: 'https://www.youtube.com/embed/TqQQexKZook' },
+    { id: '12', chapterId: '10', name: 'Inference Questions', content: '# Inference Questions\n\nDraw logical conclusions from the passage.', duration: 22, completed: false, order: 2, videoUrl: 'https://www.youtube.com/embed/8Z5sMb7QV-Y' },
     
     // Tables lessons
-    { id: '13', chapterId: '16', name: 'Basic Table Reading', content: '# Basic Table Reading\n\nExtract information from tabular data.', duration: 15, completed: true, order: 1 },
-    { id: '14', chapterId: '16', name: 'Percentage Calculations', content: '# Percentage Calculations\n\nCalculate percentages from table data.', duration: 20, completed: true, order: 2 },
+    { id: '13', chapterId: '16', name: 'Basic Table Reading', content: '# Basic Table Reading\n\nExtract information from tabular data.', duration: 15, completed: true, order: 1, videoUrl: 'https://www.youtube.com/embed/RjQda040BU0' },
+    { id: '14', chapterId: '16', name: 'Percentage Calculations', content: '# Percentage Calculations\n\nCalculate percentages from table data.', duration: 20, completed: true, order: 2, videoUrl: 'https://www.youtube.com/embed/WYWPx317qgw' },
   ];
 
   mockStore.leaderboard = Array.from({ length: 20 }, (_, i) => ({

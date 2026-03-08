@@ -90,6 +90,26 @@ const LessonDetailPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
+          {/* YouTube Video Section */}
+          {lesson?.videoUrl && (
+            <Card className="mb-6 overflow-hidden">
+              <div className="mb-4">
+                <h2 className="text-2xl font-bold text-primary mb-2">📺 Video Lesson</h2>
+                <p className="text-sm text-gray-600">Watch this video to understand the concept better</p>
+              </div>
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-lg"
+                  src={lesson.videoUrl}
+                  title={lesson.name}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </Card>
+          )}
+
           <NotebookPage showLines={true} showMargin={true}>
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-3">

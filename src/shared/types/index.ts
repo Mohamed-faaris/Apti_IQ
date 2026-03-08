@@ -62,6 +62,7 @@ export interface Lesson {
   duration: number;
   completed: boolean;
   order: number;
+  videoUrl?: string;
   quiz?: Quiz;
 }
 
