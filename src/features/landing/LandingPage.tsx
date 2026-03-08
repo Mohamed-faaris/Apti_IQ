@@ -2,13 +2,11 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '../../shared/ui/Button';
 import { Card } from '../../shared/ui/Card';
-import { ThreeBackground } from '../../shared/ui/ThreeBackground';
 
 export const LandingPage = () => {
   return (
     <div className="min-h-screen bg-[#FAF8F4]">
-      <ThreeBackground variant="both" color="#E74C3C" particleCount={2500} />
-      {/* Hero Section - Notebook Theme with 3D Animation */}
+      {/* Hero Section - Notebook Theme */}
       <section className="container mx-auto px-4 py-12 sm:py-16 md:py-20 relative overflow-hidden min-h-screen flex items-center justify-center">
         {/* Animated Notebook Background */}
         <div className="absolute inset-0 pointer-events-none">

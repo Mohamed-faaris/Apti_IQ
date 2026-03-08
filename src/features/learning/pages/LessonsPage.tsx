@@ -40,35 +40,37 @@ const LessonsPage = () => {
   }
 
   return (
-    <div className="flex gap-8">
-      {/* Left Navigation */}
-      <LearningNav currentSubjectId={subjectId} currentChapterId={id} />
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+      {/* Left Navigation - hidden on mobile */}
+      <div className="hidden lg:block">
+        <LearningNav currentSubjectId={subjectId} currentChapterId={id} />
+      </div>
 
       {/* Main Content */}
-      <div className="flex-1 space-y-8">
-        <div className="flex items-center justify-between">
+      <div className="flex-1 space-y-6 lg:space-y-8 px-4 lg:px-0">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <h1 className="text-4xl font-bold text-primary mb-2">
+            <h1 className="text-3xl lg:text-4xl font-bold text-primary mb-2">
               {currentChapter?.name || 'Lessons'}
             </h1>
-            <p className="text-gray-600">{currentChapter?.description}</p>
+            <p className="text-sm lg:text-base text-gray-600">{currentChapter?.description}</p>
           </div>
-          <Button variant="outline" onClick={() => window.history.back()}>
+          <Button variant="outline" onClick={() => window.history.back()} className="w-full sm:w-auto">
             ← Back
           </Button>
         </div>
 
         {/* Progress Summary */}
         <Card className="bg-gradient-to-r from-primary/5 to-secondary/5">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
-              <h3 className="text-lg font-bold text-primary mb-2">Lesson Progress</h3>
-              <p className="text-gray-600">
+              <h3 className="text-base lg:text-lg font-bold text-primary mb-2">Lesson Progress</h3>
+              <p className="text-sm lg:text-base text-gray-600">
                 {completedLessons} of {totalLessons} lessons completed
               </p>
             </div>
             {allLessonsComplete && (
-              <Badge variant="success" className="text-lg px-4 py-2">
+              <Badge variant="success" className="text-base lg:text-lg px-3 lg:px-4 py-1 lg:py-2">
                 Chapter Complete! 🎉
               </Badge>
             )}
@@ -76,7 +78,7 @@ const LessonsPage = () => {
         </Card>
         
         {/* Lessons List */}
-        <div className="space-y-4">
+        <div className="space-y-3 lg:space-y-4">
           {lessons?.map((lesson, i) => {
             const isInProgress = !lesson.completed && i > 0 && lessons[i - 1]?.completed;
             
@@ -89,28 +91,28 @@ const LessonsPage = () => {
               >
                 <Link to={`/lessons/${lesson.id}`}>
                   <Card hover className={isInProgress ? 'border-2 border-secondary/30' : ''}>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4 flex-1">
-                        <div className="text-4xl">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3 lg:gap-4 flex-1">
+                        <div className="text-3xl lg:text-4xl">
                           {lesson.completed ? '✅' : isInProgress ? '📖' : '📄'}
                         </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-sm font-medium text-gray-500">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2 lg:gap-3 mb-2">
+                            <span className="text-xs lg:text-sm font-medium text-gray-500">
                               Lesson {lesson.order}
                             </span>
                             {lesson.completed && <Badge variant="success">Completed</Badge>}
                             {isInProgress && <Badge variant="warning">In Progress</Badge>}
                             {!lesson.completed && !isInProgress && <Badge variant="default">Not Started</Badge>}
                           </div>
-                          <h2 className="text-xl font-bold text-primary mb-1">{lesson.name}</h2>
-                          <p className="text-sm text-gray-600">
+                          <h2 className="text-lg lg:text-xl font-bold text-primary mb-1 truncate">{lesson.name}</h2>
+                          <p className="text-xs lg:text-sm text-gray-600">
                             ⏱️ {lesson.duration} minutes
                           </p>
                         </div>
                       </div>
                       {isInProgress && (
-                        <Button variant="primary">Continue →</Button>
+                        <Button variant="primary" className="hidden sm:block">Continue →</Button>
                       )}
                     </div>
                   </Card>
@@ -128,17 +130,17 @@ const LessonsPage = () => {
             transition={{ delay: 0.3 }}
           >
             <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-200">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="text-5xl">🎯</div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex items-start sm:items-center gap-3 lg:gap-4">
+                  <div className="text-4xl lg:text-5xl">🎯</div>
                   <div>
-                    <h3 className="text-2xl font-bold text-primary mb-1">Chapter Test Unlocked!</h3>
-                    <p className="text-gray-600">
+                    <h3 className="text-xl lg:text-2xl font-bold text-primary mb-1">Chapter Test Unlocked!</h3>
+                    <p className="text-sm lg:text-base text-gray-600">
                       Test your knowledge and earn your completion badge
                     </p>
                   </div>
                 </div>
-                <Button variant="primary" size="lg">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto">
                   Start Test →
                 </Button>
               </div>

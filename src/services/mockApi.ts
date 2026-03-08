@@ -785,6 +785,144 @@ Floor 0: G (below C)
 <p>If sales increased from 200 to 250:<br>
 Increase = 250 - 200 = 50<br>
 % Increase = (50/200) × 100 = 25%</p>`, duration: 20, completed: true, order: 2, videoUrl: 'https://www.youtube.com/embed/WYWPx317qgw' },
+    
+    // More Number Systems lessons (6-8)
+    { id: '15', chapterId: '1', name: 'Fractions and Decimals', content: `<h1>Fractions and Decimals</h1>
+<p>Understanding fractions and decimals is essential for solving aptitude problems efficiently.</p>
+
+<h2>Types of Fractions</h2>
+<p>Proper Fraction: Numerator less than denominator (3/4)<br>
+Improper Fraction: Numerator greater than denominator (7/4)<br>
+Mixed Fraction: Whole number + proper fraction (1 3/4)</p>
+
+<h2>Converting Fractions to Decimals</h2>
+<p>Divide numerator by denominator<br>
+Example: 3/4 = 0.75</p>
+
+<h2>Common Fraction-Decimal Equivalents</h2>
+<p>1/2 = 0.5, 1/4 = 0.25, 3/4 = 0.75<br>
+1/3 = 0.333..., 2/3 = 0.666...<br>
+1/5 = 0.2, 1/8 = 0.125</p>`, duration: 18, completed: false, order: 6, videoUrl: 'https://www.youtube.com/embed/tW4QfO_JX3k' },
+    { id: '16', chapterId: '1', name: 'Squares and Cubes', content: `<h1>Squares and Cubes</h1>
+<p>Memorizing squares and cubes helps solve problems faster in competitive exams.</p>
+
+<h2>Squares (1-30)</h2>
+<p>1²=1, 2²=4, 3²=9, 4²=16, 5²=25, 6²=36, 7²=49, 8²=64, 9²=81, 10²=100<br>
+11²=121, 12²=144, 13²=169, 14²=196, 15²=225, 16²=256, 17²=289, 18²=324, 19²=361, 20²=400<br>
+25²=625, 30²=900</p>
+
+<h2>Cubes (1-15)</h2>
+<p>1³=1, 2³=8, 3³=27, 4³=64, 5³=125, 6³=216, 7³=343, 8³=512, 9³=729, 10³=1000<br>
+11³=1331, 12³=1728, 13³=2197, 14³=2744, 15³=3375</p>
+
+<h2>Quick Tricks</h2>
+<p>Square of numbers ending in 5: (n)(n+1) followed by 25<br>
+Example: 25² = (2×3)25 = 625</p>`, duration: 20, completed: false, order: 7, videoUrl: 'https://www.youtube.com/embed/Qhaz36TZG5Y' },
+    { id: '17', chapterId: '1', name: 'Square Roots and Cube Roots', content: `<h1>Square Roots and Cube Roots</h1>
+<p>Learn methods to find square roots and cube roots quickly.</p>
+
+<h2>Perfect Squares</h2>
+<p>√1=1, √4=2, √9=3, √16=4, √25=5, √36=6, √49=7, √64=8, √81=9, √100=10<br>
+√121=11, √144=12, √169=13, √196=14, √225=15</p>
+
+<h2>Perfect Cubes</h2>
+<p>∛1=1, ∛8=2, ∛27=3, ∛64=4, ∛125=5, ∛216=6, ∛343=7, ∛512=8, ∛729=9, ∛1000=10</p>
+
+<h2>Estimation Method</h2>
+<p>For √50: Between √49=7 and √64=8<br>
+Closer to 7, approximately 7.07</p>`, duration: 22, completed: false, order: 8, videoUrl: 'https://www.youtube.com/embed/5SqLJRUNh3A' },
+    
+    // More Algebra lessons (9-15)
+    { id: '18', chapterId: '2', name: 'Polynomials', content: `<h1>Polynomials</h1>
+<p>Expressions with multiple terms involving variables and coefficients.</p>
+
+<h2>Types of Polynomials</h2>
+<p>Monomial: One term (3x)<br>
+Binomial: Two terms (x + 5)<br>
+Trinomial: Three terms (x² + 2x + 1)</p>
+
+<h2>Degree of Polynomial</h2>
+<p>Highest power of variable<br>
+Example: 3x³ + 2x² + x has degree 3</p>
+
+<h2>Operations</h2>
+<p>Addition: Combine like terms<br>
+Multiplication: Use distributive property<br>
+Factorization: Break into simpler expressions</p>`, duration: 25, completed: false, order: 4, videoUrl: 'https://www.youtube.com/embed/WUvTyaaNkzM' },
+    { id: '19', chapterId: '2', name: 'Exponents and Powers', content: `<h1>Exponents and Powers</h1>
+<p>Understanding laws of exponents is crucial for simplifying expressions.</p>
+
+<h2>Laws of Exponents</h2>
+<p>aᵐ × aⁿ = aᵐ⁺ⁿ<br>
+aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>
+(aᵐ)ⁿ = aᵐⁿ<br>
+a⁰ = 1<br>
+a⁻ⁿ = 1/aⁿ</p>
+
+<h2>Examples</h2>
+<p>2³ × 2² = 2⁵ = 32<br>
+(3²)³ = 3⁶ = 729<br>
+5⁻² = 1/25</p>`, duration: 20, completed: false, order: 5, videoUrl: 'https://www.youtube.com/embed/i7idZfS8t8w' },
+    { id: '20', chapterId: '2', name: 'Logarithms', content: `<h1>Logarithms</h1>
+<p>Logarithms are the inverse of exponential functions.</p>
+
+<h2>Basic Definition</h2>
+<p>If aˣ = b, then logₐ(b) = x</p>
+
+<h2>Properties</h2>
+<p>log(ab) = log(a) + log(b)<br>
+log(a/b) = log(a) - log(b)<br>
+log(aⁿ) = n × log(a)<br>
+logₐ(a) = 1<br>
+logₐ(1) = 0</p>`, duration: 28, completed: false, order: 6, videoUrl: 'https://www.youtube.com/embed/VqKq78PVO9g' },
+    { id: '21', chapterId: '2', name: 'Ratio and Proportion', content: `<h1>Ratio and Proportion</h1>
+<p>Comparing quantities and solving proportion problems.</p>
+
+<h2>Ratio</h2>
+<p>Comparison of two quantities: a:b = a/b</p>
+
+<h2>Proportion</h2>
+<p>Equality of two ratios: a:b = c:d<br>
+Then a×d = b×c (cross multiplication)</p>
+
+<h2>Types</h2>
+<p>Direct Proportion: Both increase/decrease together<br>
+Inverse Proportion: One increases, other decreases</p>`, duration: 22, completed: false, order: 7, videoUrl: 'https://www.youtube.com/embed/WUvTyaaNkzM' },
+    { id: '22', chapterId: '2', name: 'Sequences and Series', content: `<h1>Sequences and Series</h1>
+<p>Ordered lists of numbers following a pattern.</p>
+
+<h2>Arithmetic Progression (AP)</h2>
+<p>Constant difference between terms<br>
+nth term: aₙ = a + (n-1)d<br>
+Sum: Sₙ = n/2[2a + (n-1)d]</p>
+
+<h2>Geometric Progression (GP)</h2>
+<p>Constant ratio between terms<br>
+nth term: aₙ = arⁿ⁻¹<br>
+Sum: Sₙ = a(rⁿ-1)/(r-1)</p>`, duration: 26, completed: false, order: 8, videoUrl: 'https://www.youtube.com/embed/i7idZfS8t8w' },
+    { id: '23', chapterId: '2', name: 'Functions', content: `<h1>Functions</h1>
+<p>Relationship between input and output values.</p>
+
+<h2>Function Notation</h2>
+<p>f(x) represents function of x<br>
+Example: f(x) = 2x + 3</p>
+
+<h2>Types of Functions</h2>
+<p>Linear: f(x) = mx + c<br>
+Quadratic: f(x) = ax² + bx + c<br>
+Exponential: f(x) = aˣ<br>
+Logarithmic: f(x) = log(x)</p>`, duration: 24, completed: false, order: 9, videoUrl: 'https://www.youtube.com/embed/VqKq78PVO9g' },
+    { id: '24', chapterId: '2', name: 'Algebraic Identities', content: `<h1>Algebraic Identities</h1>
+<p>Standard formulas for quick calculations.</p>
+
+<h2>Important Identities</h2>
+<p>(a+b)² = a² + 2ab + b²<br>
+(a-b)² = a² - 2ab + b²<br>
+a² - b² = (a+b)(a-b)<br>
+(a+b)³ = a³ + 3a²b + 3ab² + b³<br>
+(a-b)³ = a³ - 3a²b + 3ab² - b³<br>
+a³ + b³ = (a+b)(a² - ab + b²)<br>
+a³ - b³ = (a-b)(a² + ab + b²)</p>`, duration: 20, completed: false, order: 10, videoUrl: 'https://www.youtube.com/embed/WUvTyaaNkzM' },
   ];
 
   mockStore.leaderboard = Array.from({ length: 20 }, (_, i) => ({

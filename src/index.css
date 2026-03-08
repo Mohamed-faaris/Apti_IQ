@@ -100,38 +100,75 @@
   }
 }
 
-/* Enhanced styling for lesson content */
+/* Enhanced styling for lesson content - perfectly aligned with notebook lines */
+.prose {
+  line-height: 32px !important; /* Match notebook line height exactly */
+}
+
+.prose * {
+  line-height: 32px !important; /* Force all elements to match */
+}
+
 .prose h1 {
-  @apply text-3xl font-bold text-primary mb-4 mt-6;
-  border-bottom: 3px solid #6366f1;
-  padding-bottom: 0.5rem;
+  @apply text-2xl font-bold text-primary;
+  border-bottom: 2px solid #6366f1;
+  line-height: 32px !important;
+  height: 32px;
+  margin: 0 0 32px 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
 .prose h2 {
-  @apply text-2xl font-bold text-primary mb-3 mt-5;
+  @apply text-xl font-bold;
   color: #4f46e5;
+  line-height: 32px !important;
+  height: 32px;
+  margin: 32px 0 32px 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
 .prose h3 {
-  @apply text-xl font-semibold text-primary mb-2 mt-4;
+  @apply text-lg font-semibold;
   color: #6366f1;
+  line-height: 32px !important;
+  height: 32px;
+  margin: 32px 0 32px 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
 .prose p {
-  @apply mb-4 text-gray-700 leading-relaxed;
+  @apply text-gray-700 text-sm;
+  line-height: 32px !important;
+  margin: 0 0 32px 0;
+  padding: 0;
 }
 
 .prose ul, .prose ol {
-  @apply mb-4 ml-6 space-y-2;
+  @apply ml-6 text-sm;
+  line-height: 32px !important;
+  margin: 0 0 32px 0;
+  padding: 0;
+  list-style-position: outside;
+}
+
+.prose ul li, .prose ol li {
+  @apply text-gray-700;
+  line-height: 32px !important;
+  margin: 0;
+  padding: 0;
 }
 
 .prose ul li {
-  @apply text-gray-700;
   list-style-type: disc;
 }
 
 .prose ol li {
-  @apply text-gray-700;
   list-style-type: decimal;
 }
 
@@ -144,22 +181,38 @@
 }
 
 .prose pre {
-  @apply bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto;
+  @apply bg-gray-100 rounded-lg overflow-x-auto text-sm;
   border-left: 4px solid #6366f1;
+  line-height: 32px !important;
+  margin: 0 0 32px 0;
+  padding: 16px;
 }
 
 .prose code {
-  @apply bg-gray-100 px-2 py-1 rounded text-sm font-mono;
+  @apply bg-gray-100 px-2 py-1 rounded text-xs font-mono;
 }
 
-/* Special styling for example boxes */
-.prose p:has(strong:first-child) {
-  @apply bg-blue-50 p-3 rounded-lg border-l-4 border-blue-400;
+.prose br {
+  display: none; /* Remove br tags to prevent line breaks */
 }
 
-/* Tips and notes styling */
-.prose p:has(> br) {
-  @apply leading-loose;
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .prose {
+    font-size: 13px;
+  }
+  
+  .prose h1 {
+    @apply text-xl;
+  }
+  
+  .prose h2 {
+    @apply text-lg;
+  }
+  
+  .prose h3 {
+    @apply text-base;
+  }
 }
 
 

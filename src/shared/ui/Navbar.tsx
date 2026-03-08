@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuthStore } from '../../features/auth/store/authStore';
 import { Button } from './Button';
+import { NotificationBell } from './NotificationBell';
 
 export const Navbar = () => {
   const location = useLocation();
@@ -79,9 +80,12 @@ export const Navbar = () => {
           )}
 
           {/* Right: User Menu or Auth Buttons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             {isAuthenticated ? (
               <>
+                {/* Notification Bell */}
+                <NotificationBell />
+
                 {/* Desktop User Dropdown */}
                 <div className="hidden md:block relative">
                   <button

@@ -45,43 +45,45 @@ const ChaptersPage = () => {
   }
 
   return (
-    <div className="flex gap-8">
-      {/* Left Navigation */}
-      <LearningNav currentSubjectId={id} />
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+      {/* Left Navigation - hidden on mobile */}
+      <div className="hidden lg:block">
+        <LearningNav currentSubjectId={id} />
+      </div>
 
       {/* Main Content */}
-      <div className="flex-1 space-y-8">
-        <div className="flex items-center justify-between">
+      <div className="flex-1 space-y-6 lg:space-y-8 px-4 lg:px-0">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div>
-            <h1 className="text-4xl font-bold text-primary mb-2">
+            <h1 className="text-3xl lg:text-4xl font-bold text-primary mb-2">
               {currentSubject?.name || 'Chapters'}
             </h1>
-            <p className="text-gray-600">{currentSubject?.description}</p>
+            <p className="text-sm lg:text-base text-gray-600">{currentSubject?.description}</p>
           </div>
           <Link to="/subjects">
-            <Button variant="outline">← Back to Subjects</Button>
+            <Button variant="outline" className="w-full sm:w-auto">← Back to Subjects</Button>
           </Link>
         </div>
 
         {/* Progress Summary */}
         <Card className="bg-gradient-to-r from-primary/5 to-secondary/5">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
-              <h3 className="text-lg font-bold text-primary mb-2">Chapter Progress</h3>
-              <p className="text-gray-600">
+              <h3 className="text-base lg:text-lg font-bold text-primary mb-2">Chapter Progress</h3>
+              <p className="text-sm lg:text-base text-gray-600">
                 {completedChapters} of {totalChapters} chapters completed
               </p>
             </div>
             {inProgressChapter && (
-              <Link to={`/chapters/${inProgressChapter.id}/lessons`}>
-                <Button variant="primary">Resume Chapter</Button>
+              <Link to={`/chapters/${inProgressChapter.id}/lessons`} className="w-full sm:w-auto">
+                <Button variant="primary" className="w-full sm:w-auto">Resume Chapter</Button>
               </Link>
             )}
           </div>
         </Card>
         
         {/* Chapters Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
           {chapters?.map((chapter, i) => (
             <motion.div
               key={chapter.id}
@@ -94,18 +96,18 @@ const ChaptersPage = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-sm font-medium text-gray-500">Chapter {chapter.order}</span>
+                        <span className="text-xs lg:text-sm font-medium text-gray-500">Chapter {chapter.order}</span>
                         {getStatusBadge(chapter.progress)}
                       </div>
-                      <h2 className="text-2xl font-bold text-primary">{chapter.name}</h2>
+                      <h2 className="text-xl lg:text-2xl font-bold text-primary">{chapter.name}</h2>
                     </div>
-                    {chapter.progress === 100 && <span className="text-3xl">✅</span>}
+                    {chapter.progress === 100 && <span className="text-2xl lg:text-3xl">✅</span>}
                   </div>
                   
-                  <p className="text-gray-600 mb-4">{chapter.description}</p>
+                  <p className="text-sm lg:text-base text-gray-600 mb-4">{chapter.description}</p>
                   
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-xs lg:text-sm">
                       <span className="text-gray-500">{chapter.lessonsCount} lessons</span>
                       <span className="text-secondary font-medium">{chapter.progress}% complete</span>
                     </div>

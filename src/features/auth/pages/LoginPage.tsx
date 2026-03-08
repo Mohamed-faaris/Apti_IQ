@@ -3,13 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
 import { api } from '../../../services/api';
 import { useAuthStore } from '../store/authStore';
 import { useToast } from '../../../shared/hooks/useToast';
 import { Button } from '../../../shared/ui/Button';
 import { Input } from '../../../shared/ui/Input';
 import { Card } from '../../../shared/ui/Card';
-import { ThreeBackground } from '../../../shared/ui/ThreeBackground';
+import { AuthBackground } from '../../../shared/ui/AuthBackground';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -50,9 +51,52 @@ export const LoginPage = () => {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
+    try {
+      // Decode the JWT token to get user info
+      const credential = credentialResponse.credential;
+      if (!credential) {
+        toast.error('Google login failed. Please try again.');
+        return;
+      }
+
+      // Parse JWT token (basic parsing - in production, verify on backend)
+      const base64Url = credential.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      const payload = JSON.parse(jsonPayload);
+
+      // Use the email from Google to login
+      const user = await api.auth.login(payload.email);
+      setUser(user);
+      toast.success(`Welcome, ${payload.name}!`);
+      
+      // Redirect based on user role
+      if (user.role === 'admin') {
+        navigate('/admin');
+      } else if (user.role === 'teacher') {
+        navigate('/teacher/dashboard');
+      } else {
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error('Google login error:', error);
+      toast.error('Google login failed. Please try again.');
+    }
+  };
+
+  const handleGoogleError = () => {
+    toast.error('Google login failed. Please try again.');
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
-      <ThreeBackground variant="login" color="#2C3E50" />
+      <AuthBackground />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -62,6 +106,32 @@ export const LoginPage = () => {
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-primary mb-2">Welcome Back</h1>
             <p className="text-gray-600">Sign in to continue your learning journey</p>
+          </div>
+
+          {/* Google Login Button */}
+          <div className="mb-6">
+            <div className="flex justify-center">
+              <GoogleLogin
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleError}
+                useOneTap
+                theme="outline"
+                size="large"
+                text="signin_with"
+                shape="rectangular"
+                width="100%"
+              />
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or continue with email</span>
+            </div>
           </div>
 
           {/* Test Credentials Info */}

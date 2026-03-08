@@ -35,11 +35,11 @@ const SubjectsPage = () => {
   }
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6 lg:space-y-8 px-4 lg:px-0">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-4xl font-bold text-primary mb-2">Learn</h1>
-          <p className="text-gray-600">Master aptitude skills with structured learning paths</p>
+          <h1 className="text-3xl lg:text-4xl font-bold text-primary mb-2">Learn</h1>
+          <p className="text-sm lg:text-base text-gray-600">Master aptitude skills with structured learning paths</p>
         </div>
       </div>
       
@@ -50,21 +50,21 @@ const SubjectsPage = () => {
           animate={{ opacity: 1, y: 0 }}
         >
           <Card className="bg-gradient-to-r from-secondary/10 to-primary/10 border-2 border-secondary/20">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4 flex-1">
-                <div className="text-5xl">{inProgressSubject.icon}</div>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-start sm:items-center gap-3 lg:gap-4 flex-1">
+                <div className="text-4xl lg:text-5xl">{inProgressSubject.icon}</div>
                 <div className="flex-1">
-                  <p className="text-sm text-gray-600 mb-1">Continue Learning</p>
-                  <h3 className="text-2xl font-bold text-primary mb-2">
+                  <p className="text-xs lg:text-sm text-gray-600 mb-1">Continue Learning</p>
+                  <h3 className="text-xl lg:text-2xl font-bold text-primary mb-2">
                     {inProgressSubject.name}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-sm lg:text-base text-gray-600">
                     {inProgressSubject.progress}% complete • {inProgressSubject.chaptersCount} chapters
                   </p>
                 </div>
               </div>
-              <Link to={`/subjects/${inProgressSubject.id}/chapters`}>
-                <Button variant="primary" size="lg">
+              <Link to={`/subjects/${inProgressSubject.id}/chapters`} className="w-full sm:w-auto">
+                <Button variant="primary" size="lg" className="w-full sm:w-auto">
                   Resume →
                 </Button>
               </Link>
@@ -74,7 +74,7 @@ const SubjectsPage = () => {
       )}
 
       {/* Subject Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
         {subjects?.map((subject, i) => (
           <motion.div
             key={subject.id}
@@ -85,14 +85,14 @@ const SubjectsPage = () => {
             <Link to={`/subjects/${subject.id}/chapters`}>
               <Card hover className="h-full">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="text-5xl">{subject.icon}</div>
+                  <div className="text-4xl lg:text-5xl">{subject.icon}</div>
                   {getStatusBadge(subject.progress)}
                 </div>
-                <h2 className="text-2xl font-bold text-primary mb-2">{subject.name}</h2>
-                <p className="text-gray-600 mb-4">{subject.description}</p>
+                <h2 className="text-xl lg:text-2xl font-bold text-primary mb-2">{subject.name}</h2>
+                <p className="text-sm lg:text-base text-gray-600 mb-4">{subject.description}</p>
                 
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center justify-between text-xs lg:text-sm">
                     <span className="text-gray-500">{subject.chaptersCount} chapters</span>
                     <span className="text-secondary font-medium">{subject.progress}% complete</span>
                   </div>
