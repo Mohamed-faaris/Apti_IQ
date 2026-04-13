@@ -6,6 +6,7 @@ import { Button } from '../../../shared/ui/Button';
 import { Input } from '../../../shared/ui/Input';
 import { useToast } from '../../../shared/hooks/useToast';
 import { TeacherNav } from '../components/TeacherNav';
+import { api } from '../../../services/api';
 
 interface Question {
   id: string;
@@ -37,9 +38,9 @@ export const CreateTestPage = () => {
   const [bulkText, setBulkText] = useState('');
 
   useEffect(() => {
-    // Load teacher's classes
-    const storedClasses = JSON.parse(localStorage.getItem('teacherClasses') || '[]');
-    setClasses(storedClasses);
+    api.teacher.listClasses('demo-teacher').then((data) => {
+      setClasses(data.map((cls) => ({ id: cls.legacyId ?? cls._id, name: cls.name, subject: cls.subject, code: cls.code, students: cls.students, createdAt: cls.createdAt })));
+    });
   }, []);
 
   const addQuestion = () => {
@@ -100,12 +101,7 @@ export const CreateTestPage = () => {
         if (/^Q\d+\./.test(trimmedLine)) {
           // Save previous question if exists
           if (currentQuestion && options.length === 4) {
-            newQuestions.push({
-              id: Date.now().toString() + Math.random(),
-              text: currentQuestion.text,
-              options: options,
-              correctAnswer: currentQuestion.correctAnswer,
-            });
+            newQuestions.push({ id: Date.now().toString(), text: currentQuestion.text, options: options, correctAnswer: currentQuestion.correctAnswer });
           }
           
           // Start new question
@@ -131,12 +127,7 @@ export const CreateTestPage = () => {
       
       // Don't forget the last question
       if (currentQuestion && options.length === 4) {
-        newQuestions.push({
-          id: Date.now().toString() + Math.random(),
-          text: currentQuestion.text,
-          options: options,
-          correctAnswer: currentQuestion.correctAnswer,
-        });
+        newQuestions.push({ id: Date.now().toString(), text: currentQuestion.text, options: options, correctAnswer: currentQuestion.correctAnswer });
       }
 
       if (newQuestions.length > 0) {
@@ -165,7 +156,7 @@ export const CreateTestPage = () => {
           const data = JSON.parse(content);
           if (Array.isArray(data)) {
             const newQuestions = data.map((q: any) => ({
-              id: Date.now().toString() + Math.random(),
+              id: Date.now().toString(),
               text: q.text || q.question || '',
               options: q.options || [],
               correctAnswer: q.correctAnswer || 0,
@@ -230,20 +221,23 @@ export const CreateTestPage = () => {
     
     const testCode = generateTestCode();
     
-    // Store test in localStorage (in real app, this would be API call)
-    const existingTests = JSON.parse(localStorage.getItem('teacherTests') || '[]');
-    const newTest = {
-      id: Date.now().toString(),
+    api.teacher.createTest({
+      classId: testInfo.classId,
       code: testCode,
-      ...testInfo,
-      questions,
-      createdAt: new Date().toISOString(),
+      title: testInfo.title,
+      subject: testInfo.subject,
+      duration: testInfo.duration,
+      totalMarks: testInfo.totalMarks,
+      startDate: testInfo.startDate || undefined,
+      startTime: testInfo.startTime || undefined,
+      endDate: testInfo.endDate || undefined,
+      endTime: testInfo.endTime || undefined,
+      isScheduled: testInfo.isScheduled,
       status: testInfo.isScheduled ? 'scheduled' : 'active',
-    };
-    existingTests.push(newTest);
-    localStorage.setItem('teacherTests', JSON.stringify(existingTests));
-    
-    toast.success(`Test created! Code: ${testCode}`);
+      questions,
+    }).then(() => {
+      toast.success(`Test created! Code: ${testCode}`);
+    });
     
     // Show code in alert for easy copying
     setTimeout(() => {

@@ -7,7 +7,8 @@
     "dev": "concurrently \"bun run dev:frontend\" \"bun run dev:backend\" \"bun run dev:backend-dashboard\"",
     "dev:frontend": "vite",
     "dev:backend": "bunx convex dev",
-    "dev:backend-dashboard": "bunx convex dev --dashboard",
+    "dev:backend-dashboard": "bunx convex dashboard",
+    "db:seed": "bun scripts/seed-convex.ts",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"

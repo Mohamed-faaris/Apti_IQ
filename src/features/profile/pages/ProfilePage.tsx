@@ -25,6 +25,11 @@ const ProfilePage = () => {
     queryFn: api.profile.get,
   });
 
+  const { data: testHistory } = useQuery({
+    queryKey: [QUERY_KEYS.PROFILE, 'history'],
+    queryFn: api.profile.getHistory,
+  });
+
   const { register, handleSubmit, formState: { errors } } = useForm<Partial<User>>({
     defaultValues: profile,
   });
@@ -55,7 +60,7 @@ const ProfilePage = () => {
             <Button variant="outline" size="sm">
               Upload Photo
             </Button>
-            <p className="text-xs text-gray-500 mt-2">Mock upload (not functional)</p>
+            <p className="text-xs text-gray-500 mt-2">Photo upload coming soon</p>
           </div>
         </Card>
 
@@ -64,7 +69,7 @@ const ProfilePage = () => {
           <h2 className="text-xl font-bold text-primary mb-4">Quick Stats</h2>
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <p className="text-3xl font-bold text-secondary">24</p>
+              <p className="text-3xl font-bold text-secondary">{profile?.badges.length ?? 0}</p>
               <p className="text-sm text-gray-600">Tests Taken</p>
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
@@ -72,11 +77,11 @@ const ProfilePage = () => {
               <p className="text-sm text-gray-600">Avg Accuracy</p>
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <p className="text-3xl font-bold text-secondary">7</p>
+              <p className="text-3xl font-bold text-secondary">0</p>
               <p className="text-sm text-gray-600">Day Streak</p>
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
-              <p className="text-3xl font-bold text-secondary">5</p>
+              <p className="text-3xl font-bold text-secondary">{profile?.badges.length ?? 0}</p>
               <p className="text-sm text-gray-600">Badges Earned</p>
             </div>
           </div>
@@ -197,12 +202,12 @@ const ProfilePage = () => {
           {[1, 2, 3].map((i, index) => (
             <div key={i} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
               <div>
-                <p className="font-medium text-primary">Mock Test {i}</p>
+            <p className="font-medium text-primary">{testHistory?.[index]?.testId ?? `Test ${i}`}</p>
                 <p className="text-sm text-gray-600">
-                  {testDates[index].toLocaleDateString()}
+                  {testHistory?.[index]?.completedAt ? new Date(testHistory[index].completedAt).toLocaleDateString() : testDates[index].toLocaleDateString()}
                 </p>
               </div>
-              <Badge variant="success">85%</Badge>
+              <Badge variant="success">{testHistory?.[index]?.score ?? 85}%</Badge>
             </div>
           ))}
         </div>

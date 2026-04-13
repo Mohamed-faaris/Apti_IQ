@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
 import { StatCard } from '../../../shared/ui/StatCard';
@@ -8,6 +7,8 @@ import { Badge } from '../../../shared/ui/Badge';
 import { useAuthStore } from '../../auth/store/authStore';
 import { useToast } from '../../../shared/hooks/useToast';
 import { TeacherNav } from '../components/TeacherNav';
+import { api } from '../../../services/api';
+import { useEffect, useState } from 'react';
 
 export const TeacherDashboard = () => {
   const navigate = useNavigate();
@@ -15,53 +16,16 @@ export const TeacherDashboard = () => {
   const toast = useToast();
   const [createdTests, setCreatedTests] = useState<any[]>([]);
 
-  // Load created tests from localStorage
-  useState(() => {
-    const tests = JSON.parse(localStorage.getItem('teacherTests') || '[]');
-    setCreatedTests(tests.slice(-5)); // Show last 5 tests
-  });
+  useEffect(() => {
+    api.teacher.listTests('class-1').then((tests) => setCreatedTests(tests));
+  }, []);
 
   const copyTestCode = (code: string) => {
     navigator.clipboard.writeText(code);
     toast.success('Test code copied to clipboard!');
   };
 
-  const getActivityIcon = (type: string) => {
-    switch (type) {
-      case 'test_created': return '✅';
-      case 'test_updated': return '✏️';
-      case 'class_created': return '📚';
-      case 'grading': return '📝';
-      case 'shared': return '📤';
-      default: return '📌';
-    }
-  };
-
-  const getActivityColor = (type: string) => {
-    switch (type) {
-      case 'test_created': return 'bg-green-50 border-green-200';
-      case 'test_updated': return 'bg-blue-50 border-blue-200';
-      case 'class_created': return 'bg-purple-50 border-purple-200';
-      case 'grading': return 'bg-yellow-50 border-yellow-200';
-      case 'shared': return 'bg-orange-50 border-orange-200';
-      default: return 'bg-gray-50 border-gray-200';
-    }
-  };
-
-  // Mock teacher stats - replace with real API call
-  const teacherStats = {
-    totalStudents: 156,
-    activeTests: 12,
-    totalTests: 45,
-    avgStudentScore: 78,
-    teacherActivity: [
-      { id: 1, action: 'Created "Algebra Basics Test"', type: 'test_created', time: '2 hours ago', details: '30 questions, 45 min' },
-      { id: 2, action: 'Graded assignments for Mathematics - Section A', type: 'grading', time: '5 hours ago', details: '25 students' },
-      { id: 3, action: 'Created new class "Data Interpretation - Section C"', type: 'class_created', time: '1 day ago', details: 'Class code: DI-C-2024' },
-      { id: 4, action: 'Updated "Logical Reasoning Mock Test"', type: 'test_updated', time: '2 days ago', details: 'Modified 5 questions' },
-      { id: 5, action: 'Shared test code with students', type: 'shared', time: '3 days ago', details: 'Test: Quantitative Aptitude' },
-    ],
-  };
+  const teacherStats = { totalStudents: 25, activeTests: createdTests.length, totalTests: createdTests.length, avgStudentScore: 78, teacherActivity: [] };
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
@@ -95,18 +59,8 @@ export const TeacherDashboard = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <StatCard
-            title="Total Students"
-            value={teacherStats.totalStudents}
-            icon="👥"
-            trend="up"
-            trendValue="+12"
-          />
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+          <StatCard title="Total Students" value={teacherStats.totalStudents} icon="👥" trend="up" trendValue="+0" />
         </motion.div>
 
         <motion.div
@@ -138,13 +92,7 @@ export const TeacherDashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <StatCard
-            title="Avg Student Score"
-            value={`${teacherStats.avgStudentScore}%`}
-            icon="📊"
-            trend="up"
-            trendValue="+5%"
-          />
+          <StatCard title="Avg Student Score" value={`${teacherStats.avgStudentScore}%`} icon="📊" trend="up" trendValue="+0%" />
         </motion.div>
       </div>
 
@@ -229,21 +177,7 @@ export const TeacherDashboard = () => {
             <div className="flex items-center justify-between mb-4 sm:mb-6">
               <h2 className="text-base sm:text-lg lg:text-xl font-bold text-primary">📋 My Recent Activity</h2>
             </div>
-            <div className="space-y-3">
-              {teacherStats.teacherActivity.map((activity) => (
-                <div
-                  key={activity.id}
-                  className={`flex items-start gap-3 p-3 sm:p-4 rounded-lg border transition-smooth hover:shadow-md ${getActivityColor(activity.type)}`}
-                >
-                  <span className="text-2xl flex-shrink-0">{getActivityIcon(activity.type)}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm sm:text-base font-medium text-primary">{activity.action}</p>
-                    <p className="text-xs sm:text-sm text-gray-600 mt-1">{activity.details}</p>
-                    <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <div className="text-center py-10 text-gray-600">No activity yet.</div>
           </Card>
         </motion.div>
       </div>

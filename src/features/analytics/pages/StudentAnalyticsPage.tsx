@@ -7,126 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 const StudentAnalyticsPage = () => {
   const navigate = useNavigate();
-
-  // Mock test data - replace with actual API calls
-  const testStats = {
-    totalTests: 45,
-    practiceTests: 28,
-    mockTests: 12,
-    advancedTests: 5,
-    averageScore: 78,
-    highestScore: 95,
-    lowestScore: 52,
-    totalTimeSpent: '38 hours',
-  };
-
-  const completedTests = [
-    { 
-      id: 1,
-      name: 'Mock Test - Google',
-      type: 'Mock Test',
-      company: 'Google',
-      date: '2024-03-04',
-      score: 85,
-      totalQuestions: 50,
-      correctAnswers: 42,
-      wrongAnswers: 6,
-      unattempted: 2,
-      timeTaken: '45 min',
-      timeLimit: '60 min',
-      accuracy: 87.5,
-      subjects: [
-        { name: 'Quantitative', correct: 15, total: 20, accuracy: 75 },
-        { name: 'Logical', correct: 14, total: 15, accuracy: 93 },
-        { name: 'Verbal', correct: 13, total: 15, accuracy: 87 },
-      ]
-    },
-    { 
-      id: 2,
-      name: 'Practice Test - Quantitative',
-      type: 'Practice Test',
-      date: '2024-03-02',
-      score: 92,
-      totalQuestions: 30,
-      correctAnswers: 28,
-      wrongAnswers: 2,
-      unattempted: 0,
-      timeTaken: '28 min',
-      timeLimit: '30 min',
-      accuracy: 93.3,
-      subjects: [
-        { name: 'Arithmetic', correct: 10, total: 10, accuracy: 100 },
-        { name: 'Algebra', correct: 9, total: 10, accuracy: 90 },
-        { name: 'Geometry', correct: 9, total: 10, accuracy: 90 },
-      ]
-    },
-    { 
-      id: 3,
-      name: 'Advanced Test - All Concepts',
-      type: 'Advanced Test',
-      date: '2024-02-28',
-      score: 78,
-      totalQuestions: 100,
-      correctAnswers: 78,
-      wrongAnswers: 18,
-      unattempted: 4,
-      timeTaken: '88 min',
-      timeLimit: '90 min',
-      accuracy: 81.3,
-      subjects: [
-        { name: 'Quantitative', correct: 22, total: 30, accuracy: 73 },
-        { name: 'Logical', correct: 24, total: 30, accuracy: 80 },
-        { name: 'Verbal', correct: 18, total: 25, accuracy: 72 },
-        { name: 'Data Interpretation', correct: 14, total: 15, accuracy: 93 },
-      ]
-    },
-    { 
-      id: 4,
-      name: 'Mock Test - Microsoft',
-      type: 'Mock Test',
-      company: 'Microsoft',
-      date: '2024-02-25',
-      score: 80,
-      totalQuestions: 50,
-      correctAnswers: 40,
-      wrongAnswers: 8,
-      unattempted: 2,
-      timeTaken: '52 min',
-      timeLimit: '60 min',
-      accuracy: 83.3,
-      subjects: [
-        { name: 'Quantitative', correct: 16, total: 20, accuracy: 80 },
-        { name: 'Logical', correct: 13, total: 15, accuracy: 87 },
-        { name: 'Verbal', correct: 11, total: 15, accuracy: 73 },
-      ]
-    },
-    { 
-      id: 5,
-      name: 'Practice Test - Verbal Ability',
-      type: 'Practice Test',
-      date: '2024-02-22',
-      score: 68,
-      totalQuestions: 25,
-      correctAnswers: 17,
-      wrongAnswers: 6,
-      unattempted: 2,
-      timeTaken: '22 min',
-      timeLimit: '25 min',
-      accuracy: 73.9,
-      subjects: [
-        { name: 'Reading Comprehension', correct: 6, total: 10, accuracy: 60 },
-        { name: 'Vocabulary', correct: 7, total: 10, accuracy: 70 },
-        { name: 'Grammar', correct: 4, total: 5, accuracy: 80 },
-      ]
-    },
-  ];
-
-  const subjectWisePerformance = [
-    { subject: 'Quantitative Aptitude', tests: 15, avgScore: 85, bestScore: 100, icon: '🔢' },
-    { subject: 'Logical Reasoning', tests: 12, avgScore: 82, bestScore: 93, icon: '🧩' },
-    { subject: 'Verbal Ability', tests: 10, avgScore: 68, bestScore: 87, icon: '📖' },
-    { subject: 'Data Interpretation', tests: 8, avgScore: 88, bestScore: 95, icon: '📊' },
-  ];
+  const testStats = { totalTests: 0, practiceTests: 0, mockTests: 0, advancedTests: 0, averageScore: 0, highestScore: 0, lowestScore: 0, totalTimeSpent: '0 hours' };
+  const completedTests: any[] = [];
+  const subjectWisePerformance: any[] = [];
 
   const getScoreColor = (score: number) => {
     if (score >= 85) return 'text-green-600';
@@ -148,6 +31,22 @@ const StudentAnalyticsPage = () => {
     if (type === 'Advanced Test') return '🎯';
     return '📋';
   };
+
+  if (completedTests.length === 0) {
+    return (
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+        <DashboardNav />
+        <div className="flex-1 px-3 sm:px-4 lg:px-0 pb-20 lg:pb-8">
+          <Card className="text-center py-12">
+            <p className="text-4xl mb-4">📊</p>
+            <p className="text-lg text-gray-600 mb-2">No analytics yet</p>
+            <p className="text-sm text-gray-500 mb-6">Complete tests to see your performance analysis here.</p>
+            <Button variant="primary" onClick={() => navigate('/test')}>Take Test</Button>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
@@ -217,7 +116,7 @@ const StudentAnalyticsPage = () => {
               📚 Subject-wise Test Performance
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-              {subjectWisePerformance.map((subject, index) => (
+              {subjectWisePerformance.map((subject: any, index: number) => (
                 <div key={index} className="p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
@@ -267,7 +166,7 @@ const StudentAnalyticsPage = () => {
             </div>
             
             <div className="space-y-4">
-              {completedTests.map((test, index) => (
+              {completedTests.map((test: any, index: number) => (
                 <motion.div
                   key={test.id}
                   initial={{ opacity: 0, x: -20 }}
@@ -324,7 +223,7 @@ const StudentAnalyticsPage = () => {
                   <div className="border-t border-gray-200 pt-3">
                     <p className="text-xs font-semibold text-gray-600 mb-2">Subject Breakdown:</p>
                     <div className="space-y-2">
-                      {test.subjects.map((subject, idx) => (
+                      {test.subjects.map((subject: { name: string; correct: number; total: number; accuracy: number }, idx: number) => (
                         <div key={idx} className="flex items-center justify-between">
                           <div className="flex-1">
                             <div className="flex items-center justify-between mb-1">

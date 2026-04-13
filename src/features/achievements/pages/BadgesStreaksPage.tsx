@@ -25,28 +25,8 @@ interface Streak {
 
 const BadgesStreaksPage = () => {
   const [activeTab, setActiveTab] = useState<'badges' | 'streaks'>('badges');
-
-  // Mock badges data
-  const badges: BadgeItem[] = [
-    { id: '1', name: 'First Steps', icon: '🎯', description: 'Complete your first test', earnedAt: '2024-01-15', rarity: 'common' },
-    { id: '2', name: 'Quick Learner', icon: '⚡', description: 'Complete 5 lessons in one day', earnedAt: '2024-01-20', rarity: 'rare' },
-    { id: '3', name: 'Perfect Score', icon: '💯', description: 'Score 100% on any test', earnedAt: '2024-02-01', rarity: 'epic' },
-    { id: '4', name: 'Week Warrior', icon: '🔥', description: 'Maintain a 7-day streak', earnedAt: '2024-02-10', rarity: 'rare' },
-    { id: '5', name: 'Math Master', icon: '📐', description: 'Complete all Math chapters', rarity: 'legendary', progress: 8, total: 10 },
-    { id: '6', name: 'Speed Demon', icon: '🚀', description: 'Complete a test in under 30 minutes', rarity: 'epic', progress: 1, total: 1 },
-    { id: '7', name: 'Consistent', icon: '📅', description: 'Study for 30 days straight', rarity: 'legendary', progress: 15, total: 30 },
-    { id: '8', name: 'Top 10', icon: '🏆', description: 'Reach top 10 on leaderboard', rarity: 'epic', progress: 0, total: 1 },
-    { id: '9', name: 'Night Owl', icon: '🦉', description: 'Complete 10 tests after 10 PM', earnedAt: '2024-02-15', rarity: 'rare' },
-    { id: '10', name: 'Early Bird', icon: '🌅', description: 'Complete 10 tests before 8 AM', rarity: 'rare', progress: 3, total: 10 },
-  ];
-
-  // Mock streaks data
-  const streaks: Streak[] = [
-    { type: 'Daily Login', current: 15, longest: 23, icon: '📅', description: 'Days logged in consecutively' },
-    { type: 'Test Streak', current: 7, longest: 12, icon: '🎯', description: 'Days with at least one test completed' },
-    { type: 'Lesson Streak', current: 10, longest: 18, icon: '📚', description: 'Days with at least one lesson completed' },
-    { type: 'Perfect Score Streak', current: 3, longest: 5, icon: '💯', description: 'Consecutive tests with 90%+ score' },
-  ];
+  const badges: BadgeItem[] = [];
+  const streaks: Streak[] = [];
 
   const earnedBadges = badges.filter(b => b.earnedAt);
   const lockedBadges = badges.filter(b => !b.earnedAt);
@@ -116,6 +96,12 @@ const BadgesStreaksPage = () => {
       {/* Badges Tab */}
       {activeTab === 'badges' && (
         <>
+          {badges.length === 0 && (
+            <Card className="text-center py-12">
+              <p className="text-lg font-medium text-primary mb-2">No badges yet</p>
+              <p className="text-sm text-gray-600">Complete tests and lessons to earn your first badge.</p>
+            </Card>
+          )}
           {/* Earned Badges */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -201,6 +187,12 @@ const BadgesStreaksPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
         >
+          {streaks.length === 0 && (
+            <Card className="text-center py-12">
+              <p className="text-lg font-medium text-primary mb-2">No streak data yet</p>
+              <p className="text-sm text-gray-600">Keep using the app to build streak history.</p>
+            </Card>
+          )}
           <div className="grid md:grid-cols-2 gap-6">
             {streaks.map((streak, index) => (
               <motion.div

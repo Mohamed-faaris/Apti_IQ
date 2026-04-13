@@ -13,6 +13,7 @@ import type * as data from "../data.js";
 import type * as http from "../http.js";
 import type * as mutations from "../mutations.js";
 import type * as seed from "../seed.js";
+import type * as teacher from "../teacher.js";
 
 import type {
   ApiFromModules,
@@ -26,6 +27,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   mutations: typeof mutations;
   seed: typeof seed;
+  teacher: typeof teacher;
 }>;
 
 /**

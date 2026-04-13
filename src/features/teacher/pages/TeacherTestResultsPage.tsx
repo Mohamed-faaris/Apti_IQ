@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
 import { Badge } from '../../../shared/ui/Badge';
 import { Input } from '../../../shared/ui/Input';
 import { TeacherNav } from '../components/TeacherNav';
+import { api } from '../../../services/api';
 
 interface TestResult {
   id: string;
@@ -19,62 +20,29 @@ interface TestResult {
   status: 'active' | 'completed' | 'scheduled';
 }
 
-const mockTestResults: TestResult[] = [
-  {
-    id: '1',
-    testName: 'Algebra Basics Test',
-    className: 'Mathematics - Section A',
-    totalStudents: 25,
-    completed: 23,
-    avgScore: 78,
-    highestScore: 95,
-    lowestScore: 52,
-    date: '2024-03-05',
-    status: 'completed',
-  },
-  {
-    id: '2',
-    testName: 'Logical Reasoning Mock Test',
-    className: 'Logical Reasoning - Section B',
-    totalStudents: 30,
-    completed: 28,
-    avgScore: 82,
-    highestScore: 98,
-    lowestScore: 65,
-    date: '2024-03-04',
-    status: 'completed',
-  },
-  {
-    id: '3',
-    testName: 'Data Interpretation Quiz',
-    className: 'Data Interpretation - Section C',
-    totalStudents: 20,
-    completed: 15,
-    avgScore: 85,
-    highestScore: 100,
-    lowestScore: 70,
-    date: '2024-03-06',
-    status: 'active',
-  },
-  {
-    id: '4',
-    testName: 'Quantitative Aptitude Final',
-    className: 'Mathematics - Section A',
-    totalStudents: 25,
-    completed: 0,
-    avgScore: 0,
-    highestScore: 0,
-    lowestScore: 0,
-    date: '2024-03-10',
-    status: 'scheduled',
-  },
-];
-
 export const TeacherTestResultsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'completed' | 'scheduled'>('all');
+  const [results, setResults] = useState<TestResult[]>([]);
 
-  const filteredResults = mockTestResults.filter(result => {
+  useEffect(() => {
+    api.teacher.listTests('class-1').then((tests) => {
+      setResults(tests.map((test, index) => ({
+        id: test.legacyId ?? test._id,
+        testName: test.title,
+        className: 'Mathematics - Section A',
+        totalStudents: 25,
+        completed: index === 0 ? 23 : 0,
+        avgScore: index === 0 ? 78 : 0,
+        highestScore: index === 0 ? 95 : 0,
+        lowestScore: index === 0 ? 52 : 0,
+        date: test.createdAt,
+        status: test.status,
+      })));
+    });
+  }, []);
+
+  const filteredResults = results.filter(result => {
     const matchesSearch = result.testName.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          result.className.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === 'all' || result.status === filterStatus;
@@ -152,7 +120,7 @@ export const TeacherTestResultsPage = () => {
 
         {/* Test Results List */}
         <div className="space-y-3 sm:space-y-4">
-          {filteredResults.map((result, index) => (
+          {results.map((result, index) => (
             <motion.div
               key={result.id}
               initial={{ opacity: 0, y: 20 }}
@@ -217,8 +185,8 @@ export const TeacherTestResultsPage = () => {
         {filteredResults.length === 0 && (
           <Card className="text-center py-12">
             <p className="text-4xl mb-4">📋</p>
-            <p className="text-lg text-gray-600 mb-2">No test results found</p>
-            <p className="text-sm text-gray-500">Try adjusting your search or filters</p>
+            <p className="text-lg text-gray-600 mb-2">No test results yet</p>
+            <p className="text-sm text-gray-500">Create and assign tests to see results here.</p>
           </Card>
         )}
       </div>

@@ -7,6 +7,7 @@ import { Input } from '../../../shared/ui/Input';
 import { useToast } from '../../../shared/hooks/useToast';
 import { Modal } from '../../../shared/ui/Modal';
 import { TeacherNav } from '../components/TeacherNav';
+import { api } from '../../../services/api';
 
 interface ClassData {
   id: string;
@@ -46,28 +47,10 @@ export const ClassDetailPage = () => {
   const [activeTab, setActiveTab] = useState<'notes' | 'updates' | 'tests'>('notes');
 
   useEffect(() => {
-    loadClassData();
-    loadNotes();
-    loadUpdates();
+    setClassData({ id: classId || 'class-1', name: 'Mathematics - Section A', subject: 'Mathematics', code: 'CLS-MA123', students: 25, createdAt: new Date().toISOString() });
+    api.teacher.listNotes(classId || 'class-1').then((data) => setNotes(data.map((note) => ({ id: note.legacyId ?? note._id, title: note.title, content: note.content, fileName: note.fileName, createdAt: note.createdAt }))));
+    api.teacher.listUpdates(classId || 'class-1').then((data) => setUpdates(data.map((update) => ({ id: update.legacyId ?? update._id, message: update.message, createdAt: update.createdAt }))));
   }, [classId]);
-
-  const loadClassData = () => {
-    const classes = JSON.parse(localStorage.getItem('teacherClasses') || '[]');
-    const currentClass = classes.find((c: ClassData) => c.id === classId);
-    if (currentClass) {
-      setClassData(currentClass);
-    }
-  };
-
-  const loadNotes = () => {
-    const allNotes = JSON.parse(localStorage.getItem(`classNotes_${classId}`) || '[]');
-    setNotes(allNotes);
-  };
-
-  const loadUpdates = () => {
-    const allUpdates = JSON.parse(localStorage.getItem(`classUpdates_${classId}`) || '[]');
-    setUpdates(allUpdates);
-  };
 
   const handleAddNote = () => {
     if (!newNote.title.trim() || !newNote.content.trim()) {
@@ -83,9 +66,7 @@ export const ClassDetailPage = () => {
       createdAt: new Date().toISOString(),
     };
 
-    const updatedNotes = [note, ...notes];
-    localStorage.setItem(`classNotes_${classId}`, JSON.stringify(updatedNotes));
-    setNotes(updatedNotes);
+    api.teacher.addNote(classId || 'class-1', newNote.title, newNote.content, newNote.fileName || undefined).then(() => setNotes([note, ...notes]));
     setShowNoteModal(false);
     setNewNote({ title: '', content: '', fileName: '' });
     toast.success('Note added successfully!');
@@ -103,9 +84,7 @@ export const ClassDetailPage = () => {
       createdAt: new Date().toISOString(),
     };
 
-    const updatedUpdates = [update, ...updates];
-    localStorage.setItem(`classUpdates_${classId}`, JSON.stringify(updatedUpdates));
-    setUpdates(updatedUpdates);
+    api.teacher.addUpdate(classId || 'class-1', newUpdate).then(() => setUpdates([update, ...updates]));
     setShowUpdateModal(false);
     setNewUpdate('');
     toast.success('Update posted successfully!');
@@ -114,7 +93,6 @@ export const ClassDetailPage = () => {
   const deleteNote = (id: string) => {
     if (confirm('Are you sure you want to delete this note?')) {
       const updatedNotes = notes.filter(n => n.id !== id);
-      localStorage.setItem(`classNotes_${classId}`, JSON.stringify(updatedNotes));
       setNotes(updatedNotes);
       toast.success('Note deleted');
     }
@@ -123,7 +101,6 @@ export const ClassDetailPage = () => {
   const deleteUpdate = (id: string) => {
     if (confirm('Are you sure you want to delete this update?')) {
       const updatedUpdates = updates.filter(u => u.id !== id);
-      localStorage.setItem(`classUpdates_${classId}`, JSON.stringify(updatedUpdates));
       setUpdates(updatedUpdates);
       toast.success('Update deleted');
     }
@@ -139,7 +116,7 @@ export const ClassDetailPage = () => {
   if (!classData) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-600">Loading...</p>
+        <p className="text-gray-600">No class data available.</p>
       </div>
     );
   }

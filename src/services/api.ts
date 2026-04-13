@@ -227,4 +227,31 @@ export const api = {
       await client.mutation(convexApi.mutations.registerTournament, { tournamentLegacyId: tournamentId });
     },
   },
+  teacher: {
+    listClasses: async (teacherId: string) => client.query(convexApi.teacher.listTeacherClasses, { teacherId }),
+    createClass: async (teacherId: string, name: string, subject: string, code: string) => client.mutation(convexApi.teacher.createTeacherClass, { teacherId, name, subject, code }),
+    deleteClass: async (classId: string) => client.mutation(convexApi.teacher.deleteTeacherClass, { classId }),
+    listNotes: async (classId: string) => client.query(convexApi.teacher.listClassNotes, { classId }),
+    listUpdates: async (classId: string) => client.query(convexApi.teacher.listClassUpdates, { classId }),
+    addNote: async (classId: string, title: string, content: string, fileName?: string) => client.mutation(convexApi.teacher.addClassNote, { classId, title, content, fileName }),
+    addUpdate: async (classId: string, message: string) => client.mutation(convexApi.teacher.addClassUpdate, { classId, message }),
+    listTests: async (classId: string) => client.query(convexApi.teacher.listTeacherTests, { classId }),
+    createTest: async (payload: {
+      classId: string;
+      code: string;
+      title: string;
+      subject: string;
+      duration: string;
+      totalMarks: string;
+      startDate?: string;
+      startTime?: string;
+      endDate?: string;
+      endTime?: string;
+      isScheduled: boolean;
+      status: 'active' | 'scheduled';
+      questions: { id: string; text: string; options: string[]; correctAnswer: number }[];
+    }) => client.mutation(convexApi.teacher.createTeacherTest, payload),
+    listAnnouncements: async () => client.query(convexApi.teacher.listAnnouncements, {}),
+    addAnnouncement: async (title: string, message: string) => client.mutation(convexApi.teacher.addAnnouncement, { title, message }),
+  },
 };

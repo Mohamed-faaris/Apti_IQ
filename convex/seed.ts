@@ -176,6 +176,32 @@ export const seed = mutation({
       tags: ["aptitude", "national", "students"],
     });
 
+    await ctx.db.insert("teacherClasses", { legacyId: "class-1", teacherId: "demo-teacher", name: "Mathematics - Section A", subject: "Mathematics", code: "CLS-MA123", students: 25, createdAt: new Date().toISOString() });
+    await ctx.db.insert("teacherClasses", { legacyId: "class-2", teacherId: "demo-teacher", name: "Logical Reasoning - Section B", subject: "Logical Reasoning", code: "CLS-LR456", students: 30, createdAt: new Date().toISOString() });
+    await ctx.db.insert("teacherClasses", { legacyId: "class-3", teacherId: "demo-teacher", name: "Data Interpretation - Section C", subject: "Data Interpretation", code: "CLS-DI789", students: 20, createdAt: new Date().toISOString() });
+
+    await ctx.db.insert("classNotes", { legacyId: "note-1", classId: "class-1", title: "Quadratic Equations", content: "Review the standard form and factorization method.", fileName: "quadratic_notes.pdf", createdAt: new Date().toISOString() });
+    await ctx.db.insert("classUpdates", { legacyId: "update-1", classId: "class-1", message: "Test scheduled for next Monday. Please prepare chapters 1-5.", createdAt: new Date().toISOString() });
+
+    await ctx.db.insert("teacherTests", {
+      legacyId: "teacher-test-1",
+      classId: "class-1",
+      code: "ALG-101",
+      title: "Algebra Basics Test",
+      subject: "Mathematics",
+      duration: "45",
+      totalMarks: "100",
+      isScheduled: false,
+      status: "active",
+      questions: [
+        { id: "tq-1", text: "What is 2 + 2?", options: ["3", "4", "5", "6"], correctAnswer: 1 },
+      ],
+      createdAt: new Date().toISOString(),
+    });
+
+    await ctx.db.insert("teacherAnnouncements", { legacyId: "announcement-1", title: "Welcome to AptIQ", message: "Start your learning journey today!", date: "2024-03-01" });
+    await ctx.db.insert("teacherAnnouncements", { legacyId: "announcement-2", title: "New Features Added", message: "Check out our new test engine with anti-cheat features.", date: "2024-03-05" });
+
     return null;
   },
 });

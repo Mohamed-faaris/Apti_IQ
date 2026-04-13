@@ -7,92 +7,29 @@ import { DashboardNav } from '../components/DashboardNav';
 
 const ProgressPage = () => {
   const navigate = useNavigate();
-
-  // Mock detailed lesson progress data
-  const detailedProgress = [
-    {
-      subject: 'Quantitative Aptitude',
-      icon: '🔢',
-      progress: 75,
-      totalChapters: 10,
-      completedChapters: 7,
-      totalLessons: 45,
-      completedLessons: 34,
-      chapters: [
-        { name: 'Number System', lessons: 5, completed: 5, progress: 100 },
-        { name: 'Percentages', lessons: 4, completed: 4, progress: 100 },
-        { name: 'Profit & Loss', lessons: 5, completed: 5, progress: 100 },
-        { name: 'Simple Interest', lessons: 4, completed: 4, progress: 100 },
-        { name: 'Compound Interest', lessons: 4, completed: 4, progress: 100 },
-        { name: 'Time & Work', lessons: 5, completed: 3, progress: 60 },
-        { name: 'Time & Distance', lessons: 5, completed: 4, progress: 80 },
-        { name: 'Ratio & Proportion', lessons: 4, completed: 3, progress: 75 },
-        { name: 'Mixtures & Alligations', lessons: 5, completed: 2, progress: 40 },
-        { name: 'Averages', lessons: 4, completed: 0, progress: 0 },
-      ]
-    },
-    {
-      subject: 'Logical Reasoning',
-      icon: '🧩',
-      progress: 60,
-      totalChapters: 8,
-      completedChapters: 5,
-      totalLessons: 38,
-      completedLessons: 23,
-      chapters: [
-        { name: 'Coding-Decoding', lessons: 5, completed: 5, progress: 100 },
-        { name: 'Blood Relations', lessons: 4, completed: 4, progress: 100 },
-        { name: 'Direction Sense', lessons: 4, completed: 4, progress: 100 },
-        { name: 'Seating Arrangement', lessons: 6, completed: 5, progress: 83 },
-        { name: 'Puzzles', lessons: 6, completed: 3, progress: 50 },
-        { name: 'Syllogisms', lessons: 5, completed: 2, progress: 40 },
-        { name: 'Data Sufficiency', lessons: 4, completed: 0, progress: 0 },
-        { name: 'Logical Sequences', lessons: 4, completed: 0, progress: 0 },
-      ]
-    },
-    {
-      subject: 'Verbal Ability',
-      icon: '📖',
-      progress: 45,
-      totalChapters: 8,
-      completedChapters: 3,
-      totalLessons: 40,
-      completedLessons: 18,
-      chapters: [
-        { name: 'Reading Comprehension', lessons: 6, completed: 6, progress: 100 },
-        { name: 'Vocabulary', lessons: 5, completed: 5, progress: 100 },
-        { name: 'Grammar', lessons: 5, completed: 4, progress: 80 },
-        { name: 'Sentence Correction', lessons: 5, completed: 2, progress: 40 },
-        { name: 'Para Jumbles', lessons: 5, completed: 1, progress: 20 },
-        { name: 'Fill in the Blanks', lessons: 5, completed: 0, progress: 0 },
-        { name: 'Synonyms & Antonyms', lessons: 5, completed: 0, progress: 0 },
-        { name: 'Idioms & Phrases', lessons: 4, completed: 0, progress: 0 },
-      ]
-    },
-    {
-      subject: 'Data Interpretation',
-      icon: '📊',
-      progress: 85,
-      totalChapters: 6,
-      completedChapters: 5,
-      totalLessons: 30,
-      completedLessons: 26,
-      chapters: [
-        { name: 'Tables', lessons: 5, completed: 5, progress: 100 },
-        { name: 'Bar Charts', lessons: 5, completed: 5, progress: 100 },
-        { name: 'Pie Charts', lessons: 5, completed: 5, progress: 100 },
-        { name: 'Line Graphs', lessons: 5, completed: 5, progress: 100 },
-        { name: 'Mixed Charts', lessons: 5, completed: 4, progress: 80 },
-        { name: 'Caselets', lessons: 5, completed: 2, progress: 40 },
-      ]
-    },
-  ];
+  const detailedProgress: Array<{ subject: string; icon: string; progress: number; totalChapters: number; completedChapters: number; totalLessons: number; completedLessons: number; chapters: Array<{ name: string; lessons: number; completed: number; progress: number }> }> = [];
 
   const overallProgress = detailedProgress.reduce((acc, s) => acc + s.progress, 0) / detailedProgress.length;
   const totalLessons = detailedProgress.reduce((acc, s) => acc + s.totalLessons, 0);
   const completedLessons = detailedProgress.reduce((acc, s) => acc + s.completedLessons, 0);
   const totalChapters = detailedProgress.reduce((acc, s) => acc + s.totalChapters, 0);
   const completedChapters = detailedProgress.reduce((acc, s) => acc + s.completedChapters, 0);
+
+  if (detailedProgress.length === 0) {
+    return (
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
+        <DashboardNav />
+        <div className="flex-1 px-3 sm:px-4 lg:px-0 pb-20 lg:pb-8">
+          <Card className="text-center py-12">
+            <p className="text-4xl mb-4">📚</p>
+            <p className="text-lg text-gray-600 mb-2">No progress data yet</p>
+            <p className="text-sm text-gray-500 mb-6">Start learning to see subject and lesson progress here.</p>
+            <Button variant="primary" onClick={() => navigate('/subjects')}>Browse Subjects</Button>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">

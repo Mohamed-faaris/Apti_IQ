@@ -7,7 +7,7 @@ import { Input } from '../../../shared/ui/Input';
 import { Badge } from '../../../shared/ui/Badge';
 import { useToast } from '../../../shared/hooks/useToast';
 import { Modal } from '../../../shared/ui/Modal';
-import { useAuthStore } from '../../auth/store/authStore';
+import { api } from '../../../services/api';
 
 interface StudentClass {
   id: string;
@@ -22,7 +22,6 @@ interface StudentClass {
 export const MyClassesPage = () => {
   const navigate = useNavigate();
   const toast = useToast();
-  const user = useAuthStore((state) => state.user);
   const [classes, setClasses] = useState<StudentClass[]>([]);
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [classCode, setClassCode] = useState('');
@@ -32,26 +31,9 @@ export const MyClassesPage = () => {
   }, []);
 
   const loadClasses = () => {
-    const studentId = user?.id || 'student1';
-    const storedClasses = JSON.parse(localStorage.getItem(`studentClasses_${studentId}`) || '[]');
-    
-    // Add test count and update count for each class
-    const classesWithCounts = storedClasses.map((cls: StudentClass) => {
-      const tests = JSON.parse(localStorage.getItem('teacherTests') || '[]');
-      const classTests = tests.filter((t: any) => t.classId === cls.id);
-      
-      const updates = JSON.parse(localStorage.getItem(`classUpdates_${cls.id}`) || '[]');
-      const notes = JSON.parse(localStorage.getItem(`classNotes_${cls.id}`) || '[]');
-      
-      return {
-        ...cls,
-        testsAvailable: classTests.length,
-        updatesCount: updates.length,
-        notesCount: notes.length,
-      };
+    api.teacher.listClasses('demo-teacher').then((data) => {
+      setClasses(data.map((cls) => ({ id: cls.legacyId ?? cls._id, name: cls.name, subject: cls.subject, code: cls.code, teacherName: 'Prof. Smith', joinedAt: cls.createdAt, testsAvailable: 1 } as StudentClass)));
     });
-    
-    setClasses(classesWithCounts);
   };
 
   const handleJoinClass = () => {
@@ -73,8 +55,6 @@ export const MyClassesPage = () => {
       return;
     }
 
-    // In real app, this would verify with backend
-    // For now, create a mock class entry
     const newClass: StudentClass = {
       id: Date.now().toString(),
       name: 'Sample Class',
@@ -85,10 +65,7 @@ export const MyClassesPage = () => {
       testsAvailable: 0,
     };
 
-    const studentId = user?.id || 'student1';
-    const updatedClasses = [...classes, newClass];
-    localStorage.setItem(`studentClasses_${studentId}`, JSON.stringify(updatedClasses));
-    setClasses(updatedClasses);
+    setClasses([...classes, newClass]);
     setShowJoinModal(false);
     setClassCode('');
     
@@ -97,9 +74,7 @@ export const MyClassesPage = () => {
 
   const leaveClass = (id: string) => {
     if (confirm('Are you sure you want to leave this class? You will lose access to all tests in this class.')) {
-      const studentId = user?.id || 'student1';
       const updatedClasses = classes.filter(c => c.id !== id);
-      localStorage.setItem(`studentClasses_${studentId}`, JSON.stringify(updatedClasses));
       setClasses(updatedClasses);
       toast.success('Left class successfully');
     }

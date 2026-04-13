@@ -54,29 +54,16 @@ export const ClassTestsPage = () => {
   }, [classId]);
 
   const loadTests = () => {
-    // Load all teacher tests
-    const allTests = JSON.parse(localStorage.getItem('teacherTests') || '[]');
-    
-    // Filter tests for this class
-    const classTests = allTests.filter((test: Test) => test.classId === classId);
-    setTests(classTests);
-
-    // Get class name
-    const allClasses = JSON.parse(localStorage.getItem('teacherClasses') || '[]');
-    const currentClass = allClasses.find((c: any) => c.id === classId);
-    if (currentClass) {
-      setClassName(currentClass.name);
-    }
+    setTests([]);
+    setClassName('');
   };
 
   const loadNotes = () => {
-    const allNotes = JSON.parse(localStorage.getItem(`classNotes_${classId}`) || '[]');
-    setNotes(allNotes);
+    setNotes([]);
   };
 
   const loadUpdates = () => {
-    const allUpdates = JSON.parse(localStorage.getItem(`classUpdates_${classId}`) || '[]');
-    setUpdates(allUpdates);
+    setUpdates([]);
   };
 
   const isTestAvailable = (test: Test): boolean => {

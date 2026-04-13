@@ -8,6 +8,7 @@ import { Badge } from '../../../shared/ui/Badge';
 import { useToast } from '../../../shared/hooks/useToast';
 import { Modal } from '../../../shared/ui/Modal';
 import { TeacherNav } from '../components/TeacherNav';
+import { api } from '../../../services/api';
 
 interface Class {
   id: string;
@@ -26,13 +27,17 @@ export const ClassesPage = () => {
   const [newClass, setNewClass] = useState({ name: '', subject: '' });
 
   useEffect(() => {
-    loadClasses();
+    api.teacher.listClasses('demo-teacher').then((data) => {
+      setClasses(data.map((cls) => ({
+        id: cls.legacyId ?? cls._id,
+        name: cls.name,
+        subject: cls.subject,
+        code: cls.code,
+        students: cls.students,
+        createdAt: cls.createdAt,
+      })));
+    });
   }, []);
-
-  const loadClasses = () => {
-    const storedClasses = JSON.parse(localStorage.getItem('teacherClasses') || '[]');
-    setClasses(storedClasses);
-  };
 
   const generateClassCode = (): string => {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -54,18 +59,9 @@ export const ClassesPage = () => {
     }
 
     const classCode = generateClassCode();
-    const newClassObj: Class = {
-      id: Date.now().toString(),
-      name: newClass.name,
-      subject: newClass.subject,
-      code: classCode,
-      students: 0,
-      createdAt: new Date().toISOString(),
-    };
-
-    const updatedClasses = [...classes, newClassObj];
-    localStorage.setItem('teacherClasses', JSON.stringify(updatedClasses));
-    setClasses(updatedClasses);
+    api.teacher.createClass('demo-teacher', newClass.name, newClass.subject, classCode).then(() => {
+      setClasses([...classes, { id: classCode, name: newClass.name, subject: newClass.subject, code: classCode, students: 0, createdAt: new Date().toISOString() }]);
+    });
     setShowCreateModal(false);
     setNewClass({ name: '', subject: '' });
     
@@ -82,9 +78,7 @@ export const ClassesPage = () => {
 
   const deleteClass = (id: string) => {
     if (confirm('Are you sure you want to delete this class? Students will lose access to tests assigned to this class.')) {
-      const updatedClasses = classes.filter(c => c.id !== id);
-      localStorage.setItem('teacherClasses', JSON.stringify(updatedClasses));
-      setClasses(updatedClasses);
+      api.teacher.deleteClass(id).then(() => setClasses(classes.filter(c => c.id !== id)));
       toast.success('Class deleted successfully');
     }
   };

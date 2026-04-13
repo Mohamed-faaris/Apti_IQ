@@ -77,72 +77,11 @@ const AdminPage = () => {
   });
 
   useEffect(() => {
-    loadData();
+    setStudents([]);
+    setTopics([]);
+    setQuestions([]);
+    setAnnouncements([]);
   }, []);
-
-  const loadData = () => {
-    // Load students
-    const mockStudents: Student[] = [
-      { id: '1', name: 'John Doe', email: 'john@example.com', college: 'MIT', joinedAt: '2024-01-15', status: 'active' },
-      { id: '2', name: 'Jane Smith', email: 'jane@example.com', college: 'Stanford', joinedAt: '2024-01-20', status: 'active' },
-      { id: '3', name: 'Bob Johnson', email: 'bob@example.com', college: 'Harvard', joinedAt: '2024-02-01', status: 'blocked' },
-      { id: '4', name: 'Alice Williams', email: 'alice@example.com', college: 'MIT', joinedAt: '2024-01-25', status: 'active' },
-      { id: '5', name: 'Charlie Brown', email: 'charlie@example.com', college: 'Yale', joinedAt: '2024-02-10', status: 'active' },
-    ];
-    setStudents(mockStudents);
-    
-    // Load topics
-    const mockTopics: Topic[] = [
-      { id: '1', name: 'Number Systems', category: 'Mathematics', questionsCount: 45 },
-      { id: '2', name: 'Algebra', category: 'Mathematics', questionsCount: 38 },
-      { id: '3', name: 'Geometry', category: 'Mathematics', questionsCount: 52 },
-      { id: '4', name: 'Puzzles', category: 'Logical Reasoning', questionsCount: 67 },
-      { id: '5', name: 'Blood Relations', category: 'Logical Reasoning', questionsCount: 34 },
-      { id: '6', name: 'Reading Comprehension', category: 'Verbal Ability', questionsCount: 89 },
-      { id: '7', name: 'Vocabulary', category: 'Verbal Ability', questionsCount: 123 },
-      { id: '8', name: 'Tables', category: 'Data Interpretation', questionsCount: 41 },
-    ];
-    setTopics(mockTopics);
-    
-    // Load questions
-    const mockQuestions: Question[] = [
-      {
-        id: '1',
-        text: 'What is 2 + 2?',
-        options: ['3', '4', '5', '6'],
-        correctAnswer: 1,
-        topic: 'Number Systems',
-        difficulty: 'easy',
-        type: 'mcq',
-      },
-      {
-        id: '2',
-        text: 'Solve: x + 5 = 10',
-        options: ['3', '4', '5', '6'],
-        correctAnswer: 2,
-        topic: 'Algebra',
-        difficulty: 'medium',
-        type: 'mcq',
-      },
-      {
-        id: '3',
-        text: 'What is the area of a circle with radius 7?',
-        options: ['154', '144', '164', '174'],
-        correctAnswer: 0,
-        topic: 'Geometry',
-        difficulty: 'hard',
-        type: 'mcq',
-      },
-    ];
-    setQuestions(mockQuestions);
-    
-    // Load announcements
-    const mockAnnouncements: Announcement[] = [
-      { id: '1', title: 'Welcome to AptIQ', message: 'Start your learning journey today!', date: '2024-03-01' },
-      { id: '2', title: 'New Features Added', message: 'Check out our new test engine with anti-cheat features.', date: '2024-03-05' },
-    ];
-    setAnnouncements(mockAnnouncements);
-  };
 
   const getStats = () => {
     const totalStudents = students.length;
@@ -555,8 +494,8 @@ const AdminPage = () => {
                       <div key={day} className="flex items-center gap-3">
                         <span className="text-sm text-gray-600 w-12">{day}</span>
                         <div className="flex-1 bg-gray-200 rounded-full h-6">
-                          <div className="bg-warning h-6 rounded-full flex items-center justify-end pr-2 transition-smooth" style={{ width: `${Math.random() * 100}%` }}>
-                            <span className="text-xs font-medium text-primary">{Math.floor(Math.random() * 20)}</span>
+                           <div className="bg-warning h-6 rounded-full flex items-center justify-end pr-2 transition-smooth" style={{ width: '0%' }}>
+                             <span className="text-xs font-medium text-primary">0</span>
                           </div>
                         </div>
                       </div>
@@ -569,7 +508,7 @@ const AdminPage = () => {
                     {topics.slice(0, 5).map((topic) => (
                       <div key={topic.id} className="flex items-center justify-between p-2 bg-blue-50/50 rounded-lg border border-blue-100">
                         <span className="text-sm text-primary font-medium">{topic.name}</span>
-                        <Badge variant="primary">{Math.floor(Math.random() * 500)} attempts</Badge>
+                        <Badge variant="primary">0 attempts</Badge>
                       </div>
                     ))}
                   </div>
@@ -581,10 +520,10 @@ const AdminPage = () => {
                       <div key={topic.id}>
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-sm text-primary">{topic.name}</span>
-                          <span className="text-sm font-medium text-primary">{Math.floor(Math.random() * 30 + 60)}%</span>
+                          <span className="text-sm font-medium text-primary">0%</span>
                         </div>
                         <div className="bg-gray-200 rounded-full h-2">
-                          <div className="bg-success h-2 rounded-full transition-smooth" style={{ width: `${Math.random() * 30 + 60}%` }} />
+                          <div className="bg-success h-2 rounded-full transition-smooth" style={{ width: '0%' }} />
                         </div>
                       </div>
                     ))}

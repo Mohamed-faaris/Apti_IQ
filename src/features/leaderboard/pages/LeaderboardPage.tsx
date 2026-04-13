@@ -156,18 +156,11 @@ const LeaderboardPage = () => {
         transition={{ delay: 0.2 }}
       >
         <h2 className="text-2xl font-bold text-primary mb-4">📍 Your Rank</h2>
-        {/* Mock user data - replace with actual user data from auth */}
         {(() => {
-          const userRank = 18; // This should come from actual user data
-          const userData = displayData[userRank - 1] || {
-            rank: userRank,
-            name: 'You',
-            college: 'Your College',
-            score: 2450,
-            testsCompleted: 28,
-            accuracy: 82,
-            userId: 'current-user'
-          };
+          const userData = displayData.find((entry) => entry.userId === 'demo-user') || displayData[0];
+          if (!userData) {
+            return null;
+          }
 
           return (
             <Card className="border-4 border-secondary bg-gradient-to-br from-purple-50 to-blue-50 shadow-xl">
@@ -244,7 +237,7 @@ const LeaderboardPage = () => {
                     {userData.rank > 1 ? (
                       <>
                         <p className="text-sm text-gray-700 mb-2">
-                          <span className="font-bold text-green-600">↑ {Math.floor(Math.random() * 5) + 1}</span> positions this week
+                        <span className="font-bold text-green-600">↑ 0</span> positions this week
                         </p>
                         <div className="space-y-2">
                           <div className="flex justify-between text-xs">
@@ -254,7 +247,7 @@ const LeaderboardPage = () => {
                           <div className="flex justify-between text-xs">
                             <span className="text-gray-600">Points needed:</span>
                             <span className="font-bold text-secondary">
-                              {displayData[userData.rank - 2]?.score - userData.score || 50}
+                              {displayData[userData.rank - 2]?.score - userData.score || 0}
                             </span>
                           </div>
                         </div>

@@ -38,11 +38,8 @@ export const NotesPage = () => {
   });
 
   useEffect(() => {
-    // Load classes and notes from localStorage
-    const storedClasses = JSON.parse(localStorage.getItem('teacherClasses') || '[]');
-    const storedNotes = JSON.parse(localStorage.getItem('teacherNotes') || '[]');
-    setClasses(storedClasses);
-    setNotes(storedNotes);
+    setClasses([]);
+    setNotes([]);
   }, []);
 
   const filteredNotes = notes.filter(note => {
@@ -99,7 +96,6 @@ export const NotesPage = () => {
           : note
       );
       setNotes(updatedNotes);
-      localStorage.setItem('teacherNotes', JSON.stringify(updatedNotes));
       toast.success('Note updated successfully!');
     } else {
       // Create new note
@@ -111,7 +107,6 @@ export const NotesPage = () => {
       };
       const updatedNotes = [newNote, ...notes];
       setNotes(updatedNotes);
-      localStorage.setItem('teacherNotes', JSON.stringify(updatedNotes));
       toast.success('Note created successfully!');
     }
     
@@ -122,7 +117,6 @@ export const NotesPage = () => {
     if (confirm('Are you sure you want to delete this note?')) {
       const updatedNotes = notes.filter(note => note.id !== id);
       setNotes(updatedNotes);
-      localStorage.setItem('teacherNotes', JSON.stringify(updatedNotes));
       toast.success('Note deleted successfully!');
     }
   };
