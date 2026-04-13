@@ -5,14 +5,17 @@ import { v } from "convex/values";
 export default defineSchema({
   ...authTables,
   subjects: defineTable({
+    legacyId: v.optional(v.string()),
     name: v.string(),
     icon: v.string(),
     description: v.string(),
     chaptersCount: v.number(),
     order: v.number(),
-  }).index("by_order", ["order"]),
+  }).index("by_order", ["order"]).index("by_name", ["name"]).index("by_legacyId", ["legacyId"]),
   chapters: defineTable({
+    legacyId: v.optional(v.string()),
     subjectId: v.id("subjects"),
+    subjectLegacyId: v.optional(v.string()),
     name: v.string(),
     description: v.string(),
     lessonsCount: v.number(),
@@ -20,9 +23,14 @@ export default defineSchema({
     order: v.number(),
   })
     .index("by_subjectId", ["subjectId"])
-    .index("by_subjectId_and_order", ["subjectId", "order"]),
+    .index("by_subjectId_and_order", ["subjectId", "order"])
+    .index("by_subjectId_and_name", ["subjectId", "name"])
+    .index("by_subjectLegacyId", ["subjectLegacyId"])
+    .index("by_legacyId", ["legacyId"]),
   lessons: defineTable({
+    legacyId: v.optional(v.string()),
     chapterId: v.id("chapters"),
+    chapterLegacyId: v.optional(v.string()),
     name: v.string(),
     content: v.string(),
     duration: v.number(),
@@ -31,8 +39,12 @@ export default defineSchema({
     videoUrl: v.optional(v.string()),
   })
     .index("by_chapterId", ["chapterId"])
-    .index("by_chapterId_and_order", ["chapterId", "order"]),
+    .index("by_chapterId_and_order", ["chapterId", "order"])
+    .index("by_chapterId_and_name", ["chapterId", "name"])
+    .index("by_chapterLegacyId", ["chapterLegacyId"])
+    .index("by_legacyId", ["legacyId"]),
   tests: defineTable({
+    legacyId: v.optional(v.string()),
     name: v.string(),
     duration: v.number(),
     totalMarks: v.number(),
@@ -46,8 +58,9 @@ export default defineSchema({
         subject: v.optional(v.string()),
       }),
     ),
-  }),
+  }).index("by_name", ["name"]).index("by_legacyId", ["legacyId"]),
   testResults: defineTable({
+    legacyId: v.optional(v.string()),
     userId: v.string(),
     testId: v.string(),
     score: v.number(),
@@ -64,8 +77,12 @@ export default defineSchema({
     ),
     answers: v.record(v.string(), v.number()),
     completedAt: v.string(),
-  }).index("by_userId", ["userId"]),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_userId_and_testId", ["userId", "testId"])
+    .index("by_legacyId", ["legacyId"]),
   leaderboard: defineTable({
+    legacyId: v.optional(v.string()),
     userId: v.string(),
     name: v.string(),
     college: v.string(),
@@ -73,8 +90,9 @@ export default defineSchema({
     testsCompleted: v.number(),
     accuracy: v.number(),
     profilePicture: v.optional(v.string()),
-  }).index("by_score", ["score"]),
+  }).index("by_score", ["score"]).index("by_legacyId", ["legacyId"]),
   profile: defineTable({
+    legacyId: v.optional(v.string()),
     userId: v.string(),
     name: v.string(),
     college: v.optional(v.string()),
@@ -90,8 +108,9 @@ export default defineSchema({
         earnedAt: v.string(),
       }),
     ),
-  }).index("by_userId", ["userId"]),
+  }).index("by_userId", ["userId"]).index("by_legacyId", ["legacyId"]),
   tournaments: defineTable({
+    legacyId: v.optional(v.string()),
     name: v.string(),
     description: v.string(),
     organizer: v.string(),
@@ -124,5 +143,5 @@ export default defineSchema({
     isRegistered: v.boolean(),
     thumbnail: v.optional(v.string()),
     tags: v.array(v.string()),
-  }).index("by_status", ["status"]),
+  }).index("by_status", ["status"]).index("by_name", ["name"]).index("by_legacyId", ["legacyId"]),
 });

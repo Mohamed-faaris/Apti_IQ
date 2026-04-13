@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
 import { useToast } from '../../../shared/hooks/useToast';
-import { mockApi } from '../../../services/mockApi';
+import { api } from '../../../services/api';
 import type { Subject, Chapter } from '../../../shared/types';
 
 interface TestType {
@@ -46,7 +46,7 @@ const TestSelectionPage = () => {
 
   const loadSubjects = async () => {
     try {
-      const data = await mockApi.getSubjects();
+      const data = await api.subjects.getAll();
       setSubjects(data);
     } catch (error) {
       console.error('Failed to load subjects:', error);
@@ -75,7 +75,7 @@ const TestSelectionPage = () => {
   const loadChapters = async (subjectId: string) => {
     try {
       setLoading(true);
-      const data = await mockApi.getChapters(subjectId);
+      const data = await api.chapters.getBySubject(subjectId);
       setChapters(data);
     } catch (error) {
       console.error('Failed to load chapters:', error);

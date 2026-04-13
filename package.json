@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"bun run dev:frontend\" \"bun run dev:backend\"",
+    "dev": "concurrently \"bun run dev:frontend\" \"bun run dev:backend\" \"bun run dev:backend-dashboard\"",
     "dev:frontend": "vite",
-    "dev:backend": "convex dev",
+    "dev:backend": "bunx convex dev",
+    "dev:backend-dashboard": "bunx convex dev --dashboard",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
