@@ -1,0 +1,128 @@
+import { defineSchema, defineTable } from "convex/server";
+import { authTables } from "@convex-dev/auth/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  ...authTables,
+  subjects: defineTable({
+    name: v.string(),
+    icon: v.string(),
+    description: v.string(),
+    chaptersCount: v.number(),
+    order: v.number(),
+  }).index("by_order", ["order"]),
+  chapters: defineTable({
+    subjectId: v.id("subjects"),
+    name: v.string(),
+    description: v.string(),
+    lessonsCount: v.number(),
+    progress: v.number(),
+    order: v.number(),
+  })
+    .index("by_subjectId", ["subjectId"])
+    .index("by_subjectId_and_order", ["subjectId", "order"]),
+  lessons: defineTable({
+    chapterId: v.id("chapters"),
+    name: v.string(),
+    content: v.string(),
+    duration: v.number(),
+    completed: v.boolean(),
+    order: v.number(),
+    videoUrl: v.optional(v.string()),
+  })
+    .index("by_chapterId", ["chapterId"])
+    .index("by_chapterId_and_order", ["chapterId", "order"]),
+  tests: defineTable({
+    name: v.string(),
+    duration: v.number(),
+    totalMarks: v.number(),
+    questions: v.array(
+      v.object({
+        id: v.string(),
+        text: v.string(),
+        options: v.array(v.string()),
+        correctAnswer: v.number(),
+        explanation: v.optional(v.string()),
+        subject: v.optional(v.string()),
+      }),
+    ),
+  }),
+  testResults: defineTable({
+    userId: v.string(),
+    testId: v.string(),
+    score: v.number(),
+    totalQuestions: v.number(),
+    correctAnswers: v.number(),
+    timeTaken: v.number(),
+    subjectBreakdown: v.array(
+      v.object({
+        subject: v.string(),
+        correct: v.number(),
+        total: v.number(),
+        accuracy: v.number(),
+      }),
+    ),
+    answers: v.record(v.string(), v.number()),
+    completedAt: v.string(),
+  }).index("by_userId", ["userId"]),
+  leaderboard: defineTable({
+    userId: v.string(),
+    name: v.string(),
+    college: v.string(),
+    score: v.number(),
+    testsCompleted: v.number(),
+    accuracy: v.number(),
+    profilePicture: v.optional(v.string()),
+  }).index("by_score", ["score"]),
+  profile: defineTable({
+    userId: v.string(),
+    name: v.string(),
+    college: v.optional(v.string()),
+    linkedIn: v.optional(v.string()),
+    profilePicture: v.optional(v.string()),
+    role: v.union(v.literal("student"), v.literal("teacher"), v.literal("admin")),
+    badges: v.array(
+      v.object({
+        id: v.string(),
+        name: v.string(),
+        icon: v.string(),
+        description: v.string(),
+        earnedAt: v.string(),
+      }),
+    ),
+  }).index("by_userId", ["userId"]),
+  tournaments: defineTable({
+    name: v.string(),
+    description: v.string(),
+    organizer: v.string(),
+    organizerType: v.union(
+      v.literal("world"),
+      v.literal("country"),
+      v.literal("region"),
+      v.literal("state"),
+      v.literal("company"),
+      v.literal("college"),
+    ),
+    level: v.union(v.literal("beginner"), v.literal("intermediate"), v.literal("advanced"), v.literal("expert")),
+    startDate: v.string(),
+    endDate: v.string(),
+    registrationDeadline: v.string(),
+    status: v.union(v.literal("upcoming"), v.literal("ongoing"), v.literal("completed")),
+    participants: v.number(),
+    maxParticipants: v.optional(v.number()),
+    prizePool: v.string(),
+    prizes: v.array(
+      v.object({
+        position: v.string(),
+        reward: v.string(),
+        badge: v.optional(v.string()),
+      }),
+    ),
+    eligibility: v.string(),
+    duration: v.number(),
+    questionsCount: v.number(),
+    isRegistered: v.boolean(),
+    thumbnail: v.optional(v.string()),
+    tags: v.array(v.string()),
+  }).index("by_status", ["status"]),
+});

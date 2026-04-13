@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ConvexAuthProvider } from '@convex-dev/auth/react';
+import { ConvexReactClient } from 'convex/react';
 import { ToastContainer } from '../shared/ui/Toast';
 
 const queryClient = new QueryClient({
@@ -13,19 +14,17 @@ const queryClient = new QueryClient({
   },
 });
 
-// Google OAuth Client ID - Replace with your actual client ID
-// Get it from: https://console.cloud.google.com/apis/credentials
-const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '1234567890-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com';
+const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+    <ConvexAuthProvider client={convex}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           {children}
           <ToastContainer />
         </BrowserRouter>
       </QueryClientProvider>
-    </GoogleOAuthProvider>
+    </ConvexAuthProvider>
   );
 };
