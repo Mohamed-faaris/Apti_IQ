@@ -2,6 +2,11 @@
 
 A production-grade, full-stack aptitude learning platform built with React, TypeScript, and modern web technologies.
 
+## how to run the project
+
+1. npm install
+2. npm run dev
+
 ## 🚀 Features
 
 - **Notebook-Themed UI**: Beautiful warm cream paper design with ruled lines and fixed background
@@ -105,18 +110,21 @@ The app will be available at `http://localhost:5173`
 Use any email/password combination to login (mock authentication).
 
 Example:
+
 - Email: `test@example.com`
 - Password: `password123`
 
 ## 📊 Features Overview
 
 ### Landing Page
+
 - Calm 3D animations with floating notebook pages, pencil, sticky notes, and books
 - Smooth easing and professional motion design
 - Notebook-themed feature cards with hole punches
 - Responsive hero section with warm cream background
 
 ### Learning System
+
 - 4-level hierarchy: Subjects → Chapters → Lessons → Practice
 - Continue Learning banner with progress tracking
 - Status badges (Not Started, In Progress, Completed)
@@ -129,6 +137,7 @@ Example:
 - 14+ lessons with realistic content and duration
 
 ### Dashboard
+
 - Smart recommendation engine based on user behavior
 - Performance-based study suggestions
 - Areas to Improve section with:
@@ -142,6 +151,7 @@ Example:
 - Badge collection and achievements
 
 ### Test Engine (Production-Grade)
+
 - Auto-enter fullscreen on test start with vendor prefixes
 - Professional exam-like interface with 5 structural zones
 - Question centered (75% width), navigation compact on right (25%)
@@ -171,6 +181,7 @@ Example:
 - 15 realistic aptitude questions with explanations
 
 ### Test Results
+
 - Comprehensive score breakdown
 - Subject-wise performance analysis
 - Question-by-question review with explanations
@@ -181,6 +192,7 @@ Example:
   - Auto-hides when reaching destination
 
 ### Progress Tracking
+
 - Overall progress percentage
 - Subject-wise breakdown with progress bars
 - Learning milestones:
@@ -191,24 +203,28 @@ Example:
 - Quick action buttons to subjects and tests
 
 ### Leaderboard
+
 - National and college filters
 - Top 3 medal display
 - Real-time updates every 5 seconds (mocked)
 - Animated rank changes
 
 ### Analytics
+
 - Subject-wise accuracy (bar chart)
 - Performance over time (line chart)
 - Strengths vs weaknesses (pie chart)
 - Average time per question
 
 ### Profile
+
 - Personal information management
 - Badge collection
 - Test history
 - Quick stats
 
 ### Admin Panel (Lazy Loaded)
+
 - Question CRUD interface
 - Bulk CSV upload UI
 - Violation logs
@@ -254,6 +270,7 @@ The `dist` folder will contain the production build.
 ## 📱 Responsive Design
 
 The app is fully responsive and works on:
+
 - Desktop (1920px+)
 - Laptop (1024px+)
 - Tablet (768px+)
@@ -297,6 +314,7 @@ This project is for educational purposes.
 ## 🤝 Contributing
 
 This is a demonstration project. For production use, implement:
+
 - Real backend API
 - Real-time socket connection
 - File upload functionality
