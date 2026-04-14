@@ -10,3 +10,4 @@ if (!url) {
 const client = new ConvexHttpClient(url);
 
 await client.mutation(api.seed.seed, {});
+await client.action(api.bootstrapAuth.bootstrapDemoAuth, {});

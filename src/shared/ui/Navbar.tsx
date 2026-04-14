@@ -1,20 +1,22 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useAuthStore } from '../../features/auth/store/authStore';
 import { Button } from './Button';
 import { NotificationBell } from './NotificationBell';
 import { api } from '../../services/api';
 import type { Profile } from '../../shared/types';
+import { useAuthActions } from '@convex-dev/auth/react';
+import { useAuthToken } from '@convex-dev/auth/react';
 
 export const Navbar = () => {
   const location = useLocation();
-  const { isAuthenticated, logout } = useAuthStore();
+  const token = useAuthToken();
+  const { signOut } = useAuthActions();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!token) {
       setProfile(null);
       return;
     }
@@ -32,7 +34,7 @@ export const Navbar = () => {
         createdAt: new Date().toISOString(),
       } : null);
     });
-  }, [isAuthenticated]);
+  }, [token]);
 
   const isActive = (path: string) => location.pathname === path;
   const navLinkClass = (path: string) => `text-primary hover:text-secondary transition-smooth relative pb-1 ${isActive(path) ? 'font-bold after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-secondary' : ''}`;
@@ -46,7 +48,7 @@ export const Navbar = () => {
             <img src="/logo.svg" alt="AptIQ Logo" className="h-8 sm:h-9 lg:h-11" />
           </Link>
 
-          {isAuthenticated && (
+          {token && (
             <div className="hidden lg:flex items-center space-x-6 text-base">
               {profile?.role === 'teacher' ? (
                 <>
@@ -70,7 +72,7 @@ export const Navbar = () => {
           )}
 
           <div className="flex items-center gap-2 sm:gap-3">
-            {isAuthenticated ? (
+            {token ? (
               <>
                 <NotificationBell />
                 <div className="hidden md:block relative">
@@ -85,7 +87,7 @@ export const Navbar = () => {
                       <div className="fixed inset-0 z-10" onClick={() => setDropdownOpen(false)} />
                       <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-20">
                         <Link to="/profile" className="block px-4 py-2 text-base text-primary hover:bg-gray-100 transition-smooth" onClick={() => setDropdownOpen(false)}>Profile</Link>
-                        <button onClick={() => { logout(); setDropdownOpen(false); }} className="w-full text-left px-4 py-2 text-base text-primary hover:bg-gray-100 transition-smooth">Logout</button>
+                        <button onClick={async () => { await signOut(); setDropdownOpen(false); }} className="w-full text-left px-4 py-2 text-base text-primary hover:bg-gray-100 transition-smooth">Logout</button>
                       </div>
                     </>
                   )}
@@ -105,7 +107,7 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {isAuthenticated && mobileMenuOpen && (
+        {token && mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t border-gray-200">
             <div className="space-y-2">
               {profile?.role === 'teacher' ? (
@@ -142,7 +144,7 @@ export const Navbar = () => {
               <div className="pt-4 mt-4 border-t border-gray-200">
                 <div className="px-4 py-2 text-sm text-gray-600">Signed in as <span className="font-medium text-primary">{profile?.name}</span></div>
                 <Link to="/profile" className="block px-4 py-3 text-primary hover:bg-gray-100 transition-smooth rounded-lg" onClick={() => setMobileMenuOpen(false)}>👤 Profile</Link>
-                <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="w-full text-left px-4 py-3 text-primary hover:bg-gray-100 transition-smooth rounded-lg">🚪 Logout</button>
+                <button onClick={async () => { await signOut(); setMobileMenuOpen(false); }} className="w-full text-left px-4 py-3 text-primary hover:bg-gray-100 transition-smooth rounded-lg">🚪 Logout</button>
               </div>
             </div>
           </div>

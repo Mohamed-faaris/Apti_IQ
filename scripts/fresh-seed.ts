@@ -11,3 +11,4 @@ const client = new ConvexHttpClient(url);
 
 await client.mutation(api.maintenance.clearAllData, {});
 await client.mutation(api.seed.seed, {});
+await client.action(api.bootstrapAuth.bootstrapDemoAuth, {});

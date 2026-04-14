@@ -9,6 +9,8 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as bootstrapAuth from "../bootstrapAuth.js";
+import type * as bootstrapProfile from "../bootstrapProfile.js";
 import type * as data from "../data.js";
 import type * as http from "../http.js";
 import type * as maintenance from "../maintenance.js";
@@ -24,6 +26,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  bootstrapAuth: typeof bootstrapAuth;
+  bootstrapProfile: typeof bootstrapProfile;
   data: typeof data;
   http: typeof http;
   maintenance: typeof maintenance;
