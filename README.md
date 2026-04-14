@@ -7,6 +7,12 @@ A production-grade, full-stack aptitude learning platform built with React, Type
 1. npm install
 2. npm run dev
 
+## Database commands
+
+- `npm run db:seed` — seed the Convex database
+- `npm run db:clear` — clear the Convex database
+- `npm run db:fresh-seed` — reset and seed the Convex database
+
 ## 🚀 Features
 
 - **Notebook-Themed UI**: Beautiful warm cream paper design with ruled lines and fixed background
