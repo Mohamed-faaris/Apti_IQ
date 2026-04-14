@@ -3,7 +3,6 @@ import type { FormEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuthActions } from '@convex-dev/auth/react';
-import { useAuthStore } from '../store/authStore';
 import { useToast } from '../../../shared/hooks/useToast';
 import { Button } from '../../../shared/ui/Button';
 import { Input } from '../../../shared/ui/Input';
@@ -14,7 +13,6 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const toast = useToast();
   const { signIn } = useAuthActions();
-  const setUser = useAuthStore((state) => state.setUser);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -24,18 +22,8 @@ export const LoginPage = () => {
       const formData = new FormData(event.currentTarget);
       formData.set('flow', 'signIn');
       await signIn('password', formData);
-      const email = String(formData.get('email') ?? '');
-      const role = email === 'admin@aptiq.com' ? 'admin' : email === 'teacher@aptiq.com' ? 'teacher' : 'student';
-      setUser({
-        id: email,
-        email,
-        name: email.split('@')[0] || 'User',
-        role,
-        badges: [],
-        createdAt: new Date().toISOString(),
-      });
       toast.success('Login successful!');
-      navigate(role === 'admin' ? '/admin' : role === 'teacher' ? '/teacher/dashboard' : '/dashboard');
+      navigate('/dashboard');
     } catch {
       toast.error('Login failed. Please try again.');
     } finally {

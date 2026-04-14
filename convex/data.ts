@@ -62,6 +62,18 @@ export const getProfileByLegacyId = query({
   },
 });
 
+export const getMyProfile = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+    return await ctx.db
+      .query("profile")
+      .withIndex("by_userId", (q) => q.eq("userId", identity.subject))
+      .unique();
+  },
+});
+
 export const getDashboardStats = query({
   args: {},
   handler: async () => ({

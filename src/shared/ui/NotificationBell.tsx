@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuthStore } from '../../features/auth/store/authStore';
 
 interface Notification {
   id: string;
@@ -16,16 +15,10 @@ export const NotificationBell = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
-    const role = user?.role;
-    setNotifications(
-      role
-        ? []
-        : []
-    );
-  }, [user?.role]);
+    setNotifications([]);
+  }, []);
 
   // Close dropdown when clicking outside
   useEffect(() => {

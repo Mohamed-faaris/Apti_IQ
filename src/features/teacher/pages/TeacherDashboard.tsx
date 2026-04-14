@@ -4,7 +4,6 @@ import { Card } from '../../../shared/ui/Card';
 import { Button } from '../../../shared/ui/Button';
 import { StatCard } from '../../../shared/ui/StatCard';
 import { Badge } from '../../../shared/ui/Badge';
-import { useAuthStore } from '../../auth/store/authStore';
 import { useToast } from '../../../shared/hooks/useToast';
 import { TeacherNav } from '../components/TeacherNav';
 import { api } from '../../../services/api';
@@ -12,7 +11,6 @@ import { useEffect, useState } from 'react';
 
 export const TeacherDashboard = () => {
   const navigate = useNavigate();
-  const user = useAuthStore((state) => state.user);
   const toast = useToast();
   const [createdTests, setCreatedTests] = useState<any[]>([]);
 
@@ -44,7 +42,7 @@ export const TeacherDashboard = () => {
             <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-primary mb-1 sm:mb-2">
               👨‍🏫 Teacher Dashboard
             </h1>
-            <p className="text-sm sm:text-base text-gray-600">Welcome back, {user?.name}!</p>
+            <p className="text-sm sm:text-base text-gray-600">Welcome back!</p>
           </div>
           <div className="flex gap-2 sm:gap-3">
             <Button variant="outline" size="sm" onClick={() => navigate('/teacher/test-results')}>

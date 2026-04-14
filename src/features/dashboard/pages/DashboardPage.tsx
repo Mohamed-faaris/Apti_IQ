@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../../../services/api';
 import { QUERY_KEYS } from '../../../shared/constants';
@@ -10,7 +10,6 @@ import { Button } from '../../../shared/ui/Button';
 import { SkeletonCard } from '../../../shared/ui/Skeleton';
 import { Badge } from '../../../shared/ui/Badge';
 import { DashboardNav } from '../components/DashboardNav';
-import { useAuthStore } from '../../auth/store/authStore';
 
 import type { DashboardStats } from '../../../shared/types';
 
@@ -94,14 +93,17 @@ const getRecommendation = (stats: DashboardStats | undefined) => {
 
 export const DashboardPage = () => {
   const navigate = useNavigate();
-  const user = useAuthStore((state) => state.user);
+  const [role, setRole] = useState<'student' | 'teacher' | 'admin' | null>(null);
   
   // Redirect teachers to their dashboard
   useEffect(() => {
-    if (user?.role === 'teacher') {
-      navigate('/teacher/dashboard', { replace: true });
-    }
-  }, [user, navigate]);
+    api.profile.getMyProfile().then((profile) => {
+      setRole(profile?.role ?? null);
+      if (profile?.role === 'teacher') {
+        navigate('/teacher/dashboard', { replace: true });
+      }
+    });
+  }, [navigate]);
   
   const { data: stats, isLoading, isError } = useQuery({
     queryKey: [QUERY_KEYS.DASHBOARD],
@@ -109,7 +111,7 @@ export const DashboardPage = () => {
   });
   
   // Don't render student dashboard for teachers
-  if (user?.role === 'teacher') {
+  if (role === 'teacher') {
     return null;
   }
 

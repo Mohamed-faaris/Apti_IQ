@@ -5,6 +5,17 @@ export interface User {
   college?: string;
   linkedIn?: string;
   profilePicture?: string;
+  badges: Badge[];
+  createdAt: string;
+}
+
+export interface Profile {
+  id: string;
+  email: string;
+  name: string;
+  college?: string;
+  linkedIn?: string;
+  profilePicture?: string;
   role: 'student' | 'teacher' | 'admin';
   badges: Badge[];
   createdAt: string;

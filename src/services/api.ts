@@ -131,6 +131,9 @@ export const api = {
     get: async (): Promise<AnalyticsData> => client.query(convexApi.data.listAnalytics, {}),
   },
   profile: {
+    getMyProfile: async () => {
+      return client.query(convexApi.data.getMyProfile, {});
+    },
     get: async (): Promise<{ id: string; email: string; name: string; college?: string; linkedIn?: string; profilePicture?: string; role: 'student' | 'teacher' | 'admin'; badges: { id: string; name: string; icon: string; description: string; earnedAt: string }[]; createdAt: string; }> => {
       const profile = await client.query(convexApi.data.getProfileByLegacyId, { profileLegacyId: 'demo-user' });
       if (!profile) throw new Error('Profile not found');

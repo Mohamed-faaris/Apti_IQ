@@ -7,7 +7,6 @@ import { Input } from '../../../shared/ui/Input';
 import { Badge } from '../../../shared/ui/Badge';
 import { Modal } from '../../../shared/ui/Modal';
 import { useToast } from '../../../shared/hooks/useToast';
-import { useAuthStore } from '../../auth/store/authStore';
 
 interface Student {
   id: string;
@@ -45,8 +44,6 @@ interface Announcement {
 const AdminPage = () => {
   const navigate = useNavigate();
   const toast = useToast();
-  const user = useAuthStore((state) => state.user);
-  const logout = useAuthStore((state) => state.logout);
   
   const [activeSection, setActiveSection] = useState<'overview' | 'users' | 'questions' | 'topics' | 'analytics' | 'announcements' | 'settings'>('overview');
   
@@ -247,8 +244,8 @@ const AdminPage = () => {
             {activeSection === 'settings' && '⚙️ Settings'}
           </h2>
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-gray-700">Welcome, <span className="text-primary font-bold">{user?.name}</span></span>
-            <Button variant="outline" size="sm" onClick={() => { logout(); navigate('/login'); }}>
+            <span className="text-sm font-medium text-gray-700">Welcome to the admin panel</span>
+            <Button variant="outline" size="sm" onClick={() => navigate('/login')}>
               Logout
             </Button>
           </div>

@@ -5,20 +5,21 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
   requireAdmin?: boolean;
   requireTeacher?: boolean;
+  role?: 'student' | 'teacher' | 'admin';
 }
 
-export const ProtectedRoute = ({ children, requireAdmin = false, requireTeacher = false }: ProtectedRouteProps) => {
-  const { isAuthenticated, user } = useAuthStore();
+export const ProtectedRoute = ({ children, requireAdmin = false, requireTeacher = false, role }: ProtectedRouteProps) => {
+  const { isAuthenticated } = useAuthStore();
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  if (requireAdmin && user?.role !== 'admin') {
+  if (requireAdmin && role !== 'admin') {
     return <Navigate to="/dashboard" replace />;
   }
 
-  if (requireTeacher && user?.role !== 'teacher') {
+  if (requireTeacher && role !== 'teacher') {
     return <Navigate to="/dashboard" replace />;
   }
 
